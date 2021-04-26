@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Level.cs" />
+    <Compile Include="Levels\Level.cs" />
     <Compile Include="Physics\Collision\CollisionInfo.cs" />
     <Compile Include="Physics\Collision\CollisionManager.cs" />
     <Compile Include="Physics\Collision\CircleCollider.cs" />
