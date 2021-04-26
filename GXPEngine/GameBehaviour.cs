@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 public static class GameBehaviour
 {
-    public static float gravity = 9.81f;
+    public static float gravity = 9.81f * 2f;
 
     public static float GetHorizontalAxis()
     {

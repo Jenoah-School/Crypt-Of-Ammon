@@ -9,6 +9,11 @@ public class Level : GameObject
 {
     protected List<Entity> sceneObjects = new List<Entity>();
 
+    public Level(string _backgroundImage = "")
+    {
+        AddBackGround(_backgroundImage);
+    }
+
     public virtual void Load()
     {
 
@@ -19,6 +24,19 @@ public class Level : GameObject
         foreach(Entity _ent in sceneObjects)
         {
             _ent.Step();
+        }
+    }
+
+    protected void AddBackGround(string _backgroundImage)
+    {
+        if (!string.IsNullOrEmpty(_backgroundImage))
+        {
+            Sprite backgroundImage = new Sprite(_backgroundImage, false, false);
+            float aspectRatio = (float)backgroundImage.height / (float)backgroundImage.width;
+            backgroundImage.width = game.width;
+            backgroundImage.height = (int)(backgroundImage.width * aspectRatio);
+
+            AddChild(backgroundImage);
         }
     }
 
