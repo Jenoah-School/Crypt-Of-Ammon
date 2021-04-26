@@ -13,12 +13,12 @@ public static class GameBehaviour
     {
         float horizontalInput = 0f;
 
-        if (Input.GetKey(Key.A))
+        if (Input.GetKey(Key.A) || Input.GetKey(Key.LEFT))
         {
             horizontalInput -= 1;
         }
 
-        if (Input.GetKey(Key.D))
+        if (Input.GetKey(Key.D) || Input.GetKey(Key.RIGHT))
         {
             horizontalInput += 1;
         }
@@ -30,12 +30,12 @@ public static class GameBehaviour
     {
         float verticalInput = 0f;
 
-        if (Input.GetKey(Key.W))
+        if (Input.GetKey(Key.W) || Input.GetKey(Key.UP))
         {
             verticalInput -= 1;
         }
 
-        if (Input.GetKey(Key.S))
+        if (Input.GetKey(Key.S) || Input.GetKey(Key.DOWN))
         {
             verticalInput += 1;
         }
