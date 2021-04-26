@@ -83,34 +83,6 @@ class CircleCollider : Collider
         return float.MaxValue;
     }
 
-    //public Collision GetEarliestTOICircle(Entity _ent)
-    //{
-    //    Collision firstCollision = null;
-    //    float firstTOI = 1f;
-
-    //    for (int i = 0; i < MyGame.collisionObjects.Count(); i++)
-    //    {
-    //        Entity other = MyGame.collisionObjects[i];
-    //        if (other != _ent)
-    //        {
-    //            if (_ent.collider is CircleCollider otherCircleCollider)
-    //            {
-    //                if (Mathf.Abs((_ent.position - other.position).Length()) < otherCircleCollider.radius + radius)
-    //                {
-    //                    Collision collisionInfo = GetCollisionInfo(otherCircleCollider);
-    //                    if (collisionInfo != null && collisionInfo.timeOfImpact < firstTOI)
-    //                    {
-    //                        firstCollision = collisionInfo;
-    //                        firstTOI = collisionInfo.timeOfImpact;
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-
-    //    return firstCollision;
-    //}
-
     public override Collision GetCollisionInfo(Collider other)
     {
         if (other is CircleCollider otherCircleCollider)

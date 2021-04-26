@@ -98,7 +98,7 @@ namespace GXPEngine
 		//														createCollider
 		//------------------------------------------------------------------------------------------------------------------------
 		protected override Collider createCollider() {
-			return new BoxCollider (this);
+			return null;//return new BoxCollider (this);
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------

@@ -11,12 +11,13 @@ public class Level : GameObject
 
     public Level(string _backgroundImage = "")
     {
+        //_backgroundImage can be kept empty to use no background
         AddBackGround(_backgroundImage);
     }
 
     public virtual void Load()
     {
-
+        //Start audio (again)
     }
 
     protected virtual void Update()
@@ -42,6 +43,6 @@ public class Level : GameObject
 
     public virtual void Unload()
     {
-
+        //Stop audio
     }
 }

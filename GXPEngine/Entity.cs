@@ -30,7 +30,7 @@ public class Entity : Sprite
         width = _width;
         position = _position;
 
-        rigidbody = new Rigidbody(this, new PhysicsMaterial())
+        rigidbody = new Rigidbody(this, new PhysicsMaterial(_bounciness))
         {
             useGravity = _useGravity,
             checkForCollision = _checkForCollision,
@@ -51,7 +51,7 @@ public class Entity : Sprite
     /// <returns></returns>
     protected override Collider createCollider()
     {
-        return new CircleCollider(this);
+        return new BoxCollider(this);
     }
 
     /// <summary>
