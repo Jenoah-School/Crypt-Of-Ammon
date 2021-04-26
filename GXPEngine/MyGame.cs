@@ -20,7 +20,7 @@ public class MyGame : Game
 		targetFps = 60;
 
 		//Just temp to test
-		levels.Add(new Level());
+		levels.Add(new TestLevel());
 
 		SwitchLevel(0);
 	}

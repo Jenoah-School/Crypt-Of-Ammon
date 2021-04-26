@@ -14,6 +14,14 @@ public class Level : GameObject
 
     }
 
+    protected virtual void Update()
+    {
+        foreach(Entity _ent in sceneObjects)
+        {
+            _ent.Step();
+        }
+    }
+
     public virtual void Unload()
     {
 
