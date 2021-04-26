@@ -356,13 +356,17 @@ namespace GXPEngine.Core
             {
                 otherBoxCollider.owner.position = otherBoxCollider.owner.previousPosition + otherBoxCollider.owner.rigidbody.velocity * collision.timeOfImpact;
 
-
                 Vec2 centerOfMassVel = (owner.rigidbody.mass * owner.rigidbody.velocity + otherBoxCollider.owner.rigidbody.mass * otherBoxCollider.owner.rigidbody.velocity) / (owner.rigidbody.mass + otherBoxCollider.owner.rigidbody.mass);
                 Vec2 outputVelocity = owner.rigidbody.velocity - (1f + owner.rigidbody.physicsMaterial.bounciness) * ((owner.rigidbody.velocity - centerOfMassVel).Dot(new Vec2(collision.normal))) * new Vec2(collision.normal);
                 Vec2 otherOutputVelocity = otherBoxCollider.owner.rigidbody.velocity - (1f + otherBoxCollider.owner.rigidbody.physicsMaterial.bounciness) * ((otherBoxCollider.owner.rigidbody.velocity - centerOfMassVel).Dot(new Vec2(collision.normal))) * new Vec2(collision.normal);
 
                 owner.rigidbody.velocity = outputVelocity;
                 otherBoxCollider.owner.rigidbody.velocity = otherOutputVelocity;
+
+                if(collision.timeOfImpact < 0.001f)
+                {
+                    otherBoxCollider.owner.position += otherBoxCollider.owner.rigidbody.velocity;
+                }
             }
         }
 

@@ -18,7 +18,7 @@ public class Entity : Sprite
     private float _previousCollisionTime = float.MaxValue;
 
     protected Action _collisionEvent = null;
-    protected Collision _collidedObject = null;
+    public Collision _collidedObject = null;
 
     protected Collider[] _subColliders = null;
 

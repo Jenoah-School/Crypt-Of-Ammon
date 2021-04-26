@@ -22,7 +22,7 @@ class Player : Entity
     {
         rigidbody.AddForce(new Vec2(speed, 0) * GameBehaviour.GetHorizontalAxis());
         if (Input.GetKeyDown(Key.SPACE)){
-            rigidbody.AddForce(new Vec2(0, 1024), false);
+            rigidbody.AddForce(new Vec2(0, -382f), false);
         }
     }
 }
