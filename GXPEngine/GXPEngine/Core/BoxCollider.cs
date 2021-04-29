@@ -4,14 +4,14 @@ namespace GXPEngine.Core
 {
     public class BoxCollider : Collider
     {
-        public readonly Entity owner;
+
 
         //------------------------------------------------------------------------------------------------------------------------
         //														BoxCollider()
         //------------------------------------------------------------------------------------------------------------------------		
         public BoxCollider(Entity _owner)
         {
-            this.owner = _owner;
+            owner = _owner;
         }
 
         //------------------------------------------------------------------------------------------------------------------------
@@ -363,9 +363,9 @@ namespace GXPEngine.Core
                 owner.rigidbody.velocity = outputVelocity;
                 otherBoxCollider.owner.rigidbody.velocity = otherOutputVelocity;
 
-                if(collision.timeOfImpact < 0.001f)
+                if (collision.timeOfImpact < 0.001f)
                 {
-                    otherBoxCollider.owner.position += otherBoxCollider.owner.rigidbody.velocity;
+                    collision.other.owner.position += collision.other.owner.rigidbody.velocity;
                 }
             }
         }

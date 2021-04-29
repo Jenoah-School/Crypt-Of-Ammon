@@ -1,13 +1,7 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 class LineCollider : Collider
 {
-    public readonly Entity owner;
 
     public Vec2 start = new Vec2();
     public Vec2 end = new Vec2();

@@ -4,6 +4,8 @@ namespace GXPEngine.Core
 {
     public class Collider
     {
+        public Entity owner;
+
         public Collider()
         {
         }

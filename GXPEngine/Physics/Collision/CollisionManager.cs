@@ -20,7 +20,7 @@ public static class CollisionManager
         for (int i = 0; i < MyGame.collisionObjects.Count(); i++)
         {
             Collider other = MyGame.collisionObjects[i];
-            if (other == collider) break;
+            if (other == collider || collider.owner.ignoreColliders.Contains(other)) break;
 
             Collision collision = collider.GetCollisionInfo(other);
             if (collision != null && collision.timeOfImpact < _minTOI)
@@ -33,10 +33,7 @@ public static class CollisionManager
         if (_firstCollision != null)
         {
             collider.ResolveCollision(_firstCollision);
-            if (_firstCollision.self is CircleCollider outputCollider)
-            {
-                outputCollider.owner.OnCollision(_firstCollision);
-            }
+            collider.owner.OnCollision(_firstCollision);
         }
     }
 }

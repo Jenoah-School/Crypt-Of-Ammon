@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GXPEngine;
 
 public class Rigidbody
 {
@@ -38,6 +39,6 @@ public class Rigidbody
     public void AddForce(Vec2 _force, bool _isAffectedByMass = true)
     {
         _acceleration = _isAffectedByMass ? _force / mass : _force;
-        velocity += _acceleration / 75;
+        velocity += _acceleration / (float)MyGame.Instance.targetFps;
     }
 }

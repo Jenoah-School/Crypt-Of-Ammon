@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 class CircleCollider : Collider
 {
-    public readonly Entity owner;
     public readonly int radius = 6;
 
     public CircleCollider(Entity owner, int radius = 6)
