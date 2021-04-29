@@ -61,7 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation.cs" />
+    <Compile Include="Background.cs" />
+    <Compile Include="Interactibles\Door.cs" />
     <Compile Include="Levels\Level.cs" />
+    <Compile Include="Levels\LevelManager.cs" />
+    <Compile Include="Levels\TestLevelArjen.cs" />
     <Compile Include="Levels\TestLevelJenoah.cs" />
     <Compile Include="Physics\Collision\CollisionInfo.cs" />
     <Compile Include="Physics\Collision\CollisionManager.cs" />
@@ -115,6 +120,7 @@
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
     <Compile Include="Physics\PhysicsMaterial.cs" />
     <Compile Include="Physics\PhysicsMaterials\Metal.cs" />
+    <Compile Include="UVOffsetSprite.cs" />
     <Compile Include="Vec2.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -132,4 +138,5 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
 </Project>
