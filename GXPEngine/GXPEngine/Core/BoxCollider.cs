@@ -4,8 +4,6 @@ namespace GXPEngine.Core
 {
     public class BoxCollider : Collider
     {
-
-
         //------------------------------------------------------------------------------------------------------------------------
         //														BoxCollider()
         //------------------------------------------------------------------------------------------------------------------------		
@@ -133,11 +131,11 @@ namespace GXPEngine.Core
         public override float TimeOfImpact(Collider other, float vx, float vy, out Vector2 normal)
         {
             normal = new Vector2();
-            if (other is BoxCollider)
+            if (other is BoxCollider collider)
             {
                 Vector2[] c = owner.GetExtents();
                 if (c == null) return float.MaxValue;
-                Vector2[] d = ((BoxCollider)other).owner.GetExtents();
+                Vector2[] d = collider.owner.GetExtents();
                 if (d == null) return float.MaxValue;
 
                 float maxTOI = float.MinValue;
@@ -284,12 +282,12 @@ namespace GXPEngine.Core
             float penetrationDepth = float.MaxValue;
             Vector2 normal = new Vector2();
             Vector2 point = new Vector2();
-            if (other is BoxCollider)
+            if (other is BoxCollider collider)
             {
                 //Console.WriteLine ("\n\n===== Computing collision data:\n");
                 Vector2[] c = owner.GetExtents();
                 if (c == null) return null;
-                Vector2[] d = ((BoxCollider)other).owner.GetExtents();
+                Vector2[] d = collider.owner.GetExtents();
                 if (d == null) return null;
 
                 //Console.WriteLine ("\nSide vectors of this:\n {0},{1} and {2},{3}",
@@ -332,17 +330,18 @@ namespace GXPEngine.Core
                     d[1].x - d[0].x, d[1].y - d[0].y, c,
                     false, ref penetrationDepth, ref normal, ref point))
                     return null;
-                /*
-				if (convertToParentSpace && _owner.parent!=null) {
-					normal = _owner.parent.InverseTransformPoint (normal.x, normal.y);
-					float nLen = Mathf.Sqrt (normal.x * normal.x + normal.y * normal.y);
-					normal.x /= nLen;
-					normal.y /= nLen;
 
-					point = _owner.parent.InverseTransformPoint (point.x, point.y);
-				}
-				*/
-                return new Collision(owner.collider, ((BoxCollider)other).owner.collider, normal, point, penetrationDepth);
+                //if (owner.parent != null)
+                //{
+                //    normal = owner.parent.InverseTransformPoint(normal.x, normal.y);
+                //    float nLen = Mathf.Sqrt(normal.x * normal.x + normal.y * normal.y);
+                //    normal.x /= nLen;
+                //    normal.y /= nLen;
+
+                //    point = owner.parent.InverseTransformPoint(point.x, point.y);
+                //}
+
+                return new Collision(owner.collider, collider.owner.collider, normal, point, penetrationDepth);
             }
             else
             {
@@ -354,7 +353,11 @@ namespace GXPEngine.Core
         {
             if (collision.other is BoxCollider otherBoxCollider)
             {
-                otherBoxCollider.owner.position = otherBoxCollider.owner.previousPosition + otherBoxCollider.owner.rigidbody.velocity * collision.timeOfImpact;
+                //Here is the current calculation using the Time of Impact
+                owner.position = owner.previousPosition + owner.rigidbody.velocity * collision.timeOfImpact + (new Vec2(collision.normal) * (collision.penetrationDepth + 0.01f));
+
+                //This is how I would expect the point variable to be used
+                //owner.position += new Vec2(collision.point);
 
                 Vec2 centerOfMassVel = (owner.rigidbody.mass * owner.rigidbody.velocity + otherBoxCollider.owner.rigidbody.mass * otherBoxCollider.owner.rigidbody.velocity) / (owner.rigidbody.mass + otherBoxCollider.owner.rigidbody.mass);
                 Vec2 outputVelocity = owner.rigidbody.velocity - (1f + owner.rigidbody.physicsMaterial.bounciness) * ((owner.rigidbody.velocity - centerOfMassVel).Dot(new Vec2(collision.normal))) * new Vec2(collision.normal);
@@ -363,9 +366,9 @@ namespace GXPEngine.Core
                 owner.rigidbody.velocity = outputVelocity;
                 otherBoxCollider.owner.rigidbody.velocity = otherOutputVelocity;
 
-                if (collision.timeOfImpact < 0.001f)
+                if (collision.timeOfImpact < 0.01f)
                 {
-                    collision.other.owner.position += collision.other.owner.rigidbody.velocity;
+                    owner.position += owner.rigidbody.velocity;
                 }
             }
         }

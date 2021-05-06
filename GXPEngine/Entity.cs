@@ -6,29 +6,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class Entity : Sprite
+public class Entity : AnimationSprite
 {
-    public float drag = 0.97f;
-
     public readonly Rigidbody rigidbody;
 
     public Vec2 position = new Vec2();
     public Vec2 previousPosition = new Vec2();
 
     private float _previousCollisionTime = float.MaxValue;
+    private bool initGravityState = true;
+    private int groundCheckDistance = 1;
 
-    protected Action _collisionEvent = null;
+    public Action _collisionEvent = null;
     public Collision _collidedObject = null;
+    public List<Collider> ignoreColliders = new List<Collider>();
 
     protected Collider[] _subColliders = null;
 
-    public Entity(string _fileName, Vec2 _position, int _width, int _height = -1, bool _useGravity = true, bool _checkForCollision = true, float _mass = 1f, float _bounciness = 0.5f) : base(_fileName, false, true)
+    public bool skipResolve = false;
+
+    public Entity(string _fileName, Vec2 _position, int _width, int _height = -1, bool _useGravity = true, bool _checkForCollision = true, float _mass = 1f, float _bounciness = 0.5f, int _rows = 1, int _cols = 1, int _frames = 1) : base(_fileName, _cols, _rows, _frames, false, true)
     {
         SetOrigin(width / 2, height / 2);
 
         height = _height == -1 ? _width * (width / height) : _height;
         width = _width;
         position = _position;
+
+        initGravityState = _useGravity;
 
         rigidbody = new Rigidbody(this, new PhysicsMaterial(_bounciness))
         {
@@ -39,7 +44,10 @@ public class Entity : Sprite
 
         SetXY(_position.x, _position.y);
 
-        MyGame.collisionObjects.Add(collider);
+        if (_checkForCollision)
+        {
+            MyGame.collisionObjects.Add(collider);
+        }
 
         _previousCollisionTime = Time.time;
         _collisionEvent = new Action(() => CollideEvent());
@@ -59,13 +67,45 @@ public class Entity : Sprite
     /// </summary>
     public void Step()
     {
+        if (collider == null) return;
         previousPosition = position;
+
+        if (!IsGrounded())
+        {
+            rigidbody.useGravity = initGravityState;
+        }
+        else
+        {
+            rigidbody.useGravity = false;
+        }
 
         rigidbody.Step();
 
-        CollisionManager.HandleCollision(collider);
+        if (!skipResolve)
+        {
+            CollisionManager.HandleCollision(collider);
+        }
 
+        skipResolve = false;
         SetXY(position.x, position.y);
+    }
+
+    public bool IsGrounded()
+    {
+        //return (position - previousPosition).y > -0.4f && (position - previousPosition).y < 0.4f;
+        foreach(Entity _ent in MyGame.Instance.currentLevel.sceneObjects.ToList())
+        {
+            if(_ent == MyGame.Instance.currentLevel.player)
+            {
+                continue;
+            }
+            if(_ent.HitTestPoint(x, y + height / 2f + groundCheckDistance) || _ent.HitTestPoint(x - width / 2, y + height / 2f + groundCheckDistance) || _ent.HitTestPoint(x + width / 2, y + height / 2f + groundCheckDistance))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -79,6 +119,7 @@ public class Entity : Sprite
             _collidedObject = _collision;
             _collisionEvent.Invoke();
             _collidedObject = null;
+
         }
         _previousCollisionTime = Time.time;
     }

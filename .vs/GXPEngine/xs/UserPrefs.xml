@@ -1,0 +1,39 @@
+﻿<Properties StartupConfiguration="{B5126D4C-7FE0-4552-BC8C-E68D529C22B2}|Default">
+  <MonoDevelop.Ide.ItemProperties.GXPEngine PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="GXPEngine/Physics/Player.cs">
+    <Files>
+      <File FileName="GXPEngine/MyGame.cs" Line="18" Column="5" />
+      <File FileName="GXPEngine/Levels/TestLevelJenoah.cs" Line="24" Column="25" />
+      <File FileName="GXPEngine/Physics/Player.cs" Line="116" Column="1" />
+      <File FileName="GXPEngine/Entity.cs" Line="61" Column="19" />
+      <File FileName="GXPEngine/Physics/Collision/CollisionManager.cs" Line="23" Column="92" />
+      <File FileName="GXPEngine/Levels/Level.cs" Line="19" Column="6" />
+      <File FileName="GXPEngine/GXPEngine/Core/BoxCollider.cs" Line="355" Column="65" />
+      <File FileName="GXPEngine/Physics/Rigidbody.cs" Line="29" Column="6" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="GXPEngine" expanded="True">
+            <Node name="GXPEngine" expanded="True">
+              <Node name="GXPEngine" expanded="True">
+                <Node name="Core" expanded="True" />
+              </Node>
+              <Node name="Levels" expanded="True" />
+              <Node name="Physics" expanded="True">
+                <Node name="Collision" expanded="True" />
+                <Node name="Player.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

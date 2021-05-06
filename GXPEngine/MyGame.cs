@@ -7,6 +7,7 @@ using GXPEngine.Core;
 
 public class MyGame : Game
 {
+	public static MyGame Instance;
 	public static List<Collider> collisionObjects = new List<Collider>();
 
 	public Level currentLevel { get; private set; }
@@ -16,11 +17,12 @@ public class MyGame : Game
 	{
 		GL.glfwSetWindowPos((Screen.PrimaryScreen.Bounds.Width - width) / 2, (Screen.PrimaryScreen.Bounds.Height - height) / 2);
 		GL.glfwSetWindowTitle("Final Approach");
+		Instance = this;
 
 		targetFps = 60;
 
 		//Just temp to test
-		levels.Add(new TestLevelJenoah());
+		levels.Add(new TestLevelJenoah1());
 
 		SwitchLevel(0);
 	}

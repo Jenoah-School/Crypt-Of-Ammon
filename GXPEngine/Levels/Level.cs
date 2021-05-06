@@ -7,7 +7,14 @@ using System.Threading.Tasks;
 
 public class Level : GameObject
 {
-    protected List<Entity> sceneObjects = new List<Entity>();
+    public List<Entity> sceneObjects = new List<Entity>();
+
+    public List<Entity> pressureTriggers = new List<Entity>();
+    public List<Entity> pressureSenders = new List<Entity>();
+
+    public Player player = null;
+
+    public Sprite backgroundImage;
 
     public Level(string _backgroundImage = "")
     {
@@ -17,12 +24,17 @@ public class Level : GameObject
 
     public virtual void Load()
     {
+        MyGame.collisionObjects.Clear();
+        for (int i = 0; i < sceneObjects.Count; i++)
+        {
+            MyGame.collisionObjects.Add(sceneObjects[i].collider);
+        }
         //Start audio (again)
     }
 
     protected virtual void Update()
     {
-        foreach(Entity _ent in sceneObjects)
+        foreach (Entity _ent in sceneObjects.ToList())
         {
             _ent.Step();
         }
@@ -32,7 +44,7 @@ public class Level : GameObject
     {
         if (!string.IsNullOrEmpty(_backgroundImage))
         {
-            Sprite backgroundImage = new Sprite(_backgroundImage, false, false);
+            backgroundImage = new Sprite(_backgroundImage, false, false);
             float aspectRatio = (float)backgroundImage.height / (float)backgroundImage.width;
             backgroundImage.width = game.width;
             backgroundImage.height = (int)(backgroundImage.width * aspectRatio);

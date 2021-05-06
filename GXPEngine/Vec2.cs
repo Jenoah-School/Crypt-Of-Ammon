@@ -244,7 +244,7 @@ public struct Vec2
 
     public float GetAngleDegrees()
     {
-        return GetAngleRadians();
+        return GetAngleRadians() * Vec2.Rad2Deg;
     }
 
     public float GetAngleRadians()
