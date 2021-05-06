@@ -1,10 +1,5 @@
-﻿using GXPEngine;
-using GXPEngine.Core;
-using System;
-using System.Collections.Generic;
+﻿using GXPEngine.Core;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public static class CollisionManager
 {

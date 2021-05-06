@@ -1,9 +1,4 @@
 ﻿using GXPEngine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public class Player : Entity
 {
@@ -15,6 +10,8 @@ public class Player : Entity
     private Entity pole;
     private GameObject leftHandTarget, rightHandTarget;
 
+    private Sound thurstSound = null;
+
     public Player(Vec2 _position, int _width, int _height = -1) : base("Assets/Sprites/Player/torso.png", _position, _width, _height, true, true, 1, 0)
     {
         pole = new Entity("Assets/Sprites/Player/staff_and_hands.png", new Vec2(0, 0), 256, 1536, false, false, 1, 0); ;
@@ -25,6 +22,7 @@ public class Player : Entity
         leftArm = new IK("Assets/Sprites/Gradient.png", "Assets/Sprites/Gradient.png", new Vec2(-96, -300), 0, leftHandTarget, 768, 384);
         rightArm = new IK("Assets/Sprites/Gradient.png", "Assets/Sprites/Gradient.png", new Vec2(192, -300), 180, rightHandTarget, 768, 384);
 
+        //thurstSound = new Sound("Assets/Audio/SoundFX/thrust.mp3");
 
         AddChild(leftHandTarget);
         AddChild(rightHandTarget);
@@ -37,15 +35,26 @@ public class Player : Entity
     public void Update()
     {
         HandleInput();
+        PositionArms();
     }
 
     public void HandleInput()
     {
         rigidbody.AddForce(new Vec2(speed, 0) * GameBehaviour.GetHorizontalAxis());
-        if (Input.GetKeyDown(Key.SPACE)){
+        if (Input.GetKeyDown(Key.SPACE)) {
             rigidbody.AddForce(new Vec2(0, -382f), false);
         }
 
+        
+
+        if (IsGrounded() && Input.GetMouseButtonDown(0))
+        {
+            Thrust();
+        }
+    }
+
+    private void PositionArms()
+    {
         Vec2 poleTargetPos = new Vec2(1f, 0f);
 
         float poleTargetRotation = Mathf.Atan2(y - Input.mouseY, x - Input.mouseX) * Vec2.Rad2Deg + 180f;
@@ -67,14 +76,19 @@ public class Player : Entity
 
         leftArm.Step();
         rightArm.Step();
+    }
 
-        if (IsGrounded() && Input.GetMouseButtonDown(0))
-        {
+    private void Thrust()
+    {
+        
             position += new Vec2(0, 5f);
             skipResolve = true;
             Vec2 thrustForce = new Vec2(0, -thrustSpeed);
             thrustForce.RotateDegrees(pole.rotation);
             rigidbody.AddForce(thrustForce);
-        }
+            if(thurstSound != null)
+            {
+                thurstSound.Play();
+            }
     }
 }
