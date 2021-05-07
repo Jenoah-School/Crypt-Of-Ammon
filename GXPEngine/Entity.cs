@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class Entity : Sprite
+public class Entity : AnimationSprite
 {
     public float drag = 0.97f;
 
@@ -17,12 +17,13 @@ public class Entity : Sprite
 
     private float _previousCollisionTime = float.MaxValue;
 
+    public List<Collider> ignoreColliders = new List<Collider>();
     protected Action _collisionEvent = null;
     public Collision _collidedObject = null;
 
     protected Collider[] _subColliders = null;
 
-    public Entity(string _fileName, Vec2 _position, int _width, int _height = -1, bool _useGravity = true, bool _checkForCollision = true, float _mass = 1f, float _bounciness = 0.5f) : base(_fileName, false, true)
+    public Entity(string _fileName, Vec2 _position, int _width, int _height = -1, bool _useGravity = true, bool _checkForCollision = true, float _mass = 1f, float _bounciness = 0.5f, int _rows = 1, int _cols = 1, int _frames = 1) : base(_fileName, _cols, _rows, _frames, false, true)
     {
         SetOrigin(width / 2, height / 2);
 

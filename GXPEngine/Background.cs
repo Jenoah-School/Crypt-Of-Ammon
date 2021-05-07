@@ -25,11 +25,11 @@ class Background : GameObject
         }
     }
 
-    public void MoveLayersWithDistance(float[] _layerDistances, float playerVelocityX)
+    public void MoveLayersWithDistance(float[] _layerDistances, Vec2 playerVelocity)
     {
         for(int i = 0; i < _layerDistances.Length; i++)
         {
-            layers[i].AddOffset(((playerVelocityX *= _layerDistances[i]) / 10000), 0f);
+            layers[i].AddOffset(((playerVelocity.x *= _layerDistances[i]) / 10000), (playerVelocity.y *= _layerDistances[i]) / 5000);
         }
     }
 }

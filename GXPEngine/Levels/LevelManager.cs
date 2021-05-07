@@ -21,6 +21,7 @@ namespace GXPEngine
             myGame = (MyGame)game;
 
             levels.Add(new TestLevelArjen());
+            levels.Add(new TestLevelArjen2());
             levels.Add(new TestLevelJenoah());
 
             SwitchLevel(0);
@@ -34,7 +35,7 @@ namespace GXPEngine
                 if (currentLevel != null)
                 {
                     currentLevel.Unload();
-                    currentLevel.LateDestroy();
+                    //currentLevel.LateDestroy();
                     currentLevel = null;
                 }
                 currentLevel = levels[_levelId];

@@ -61,12 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animation.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Interactibles\Door.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelManager.cs" />
     <Compile Include="Levels\TestLevelArjen.cs" />
+    <Compile Include="Levels\TestLevelArjen2.cs" />
     <Compile Include="Levels\TestLevelJenoah.cs" />
     <Compile Include="Physics\Collision\CollisionInfo.cs" />
     <Compile Include="Physics\Collision\CollisionManager.cs" />
@@ -120,6 +120,13 @@
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
     <Compile Include="Physics\PhysicsMaterial.cs" />
     <Compile Include="Physics\PhysicsMaterials\Metal.cs" />
+    <Compile Include="UI%27s\Button.cs" />
+    <Compile Include="UI%27s\LoadScreenGameLogo.cs" />
+    <Compile Include="UI%27s\LoadScreenTeamLogo.cs" />
+    <Compile Include="UI%27s\MainMenu.cs" />
+    <Compile Include="UI%27s\PlayingUI.cs" />
+    <Compile Include="UI%27s\UI.cs" />
+    <Compile Include="UI%27s\UIManager.cs" />
     <Compile Include="UVOffsetSprite.cs" />
     <Compile Include="Vec2.cs" />
   </ItemGroup>
