@@ -2,7 +2,7 @@
 
 public class Player : Entity
 {
-    private float speed = 5f;
+    private float speed = 400f;
     private float thrustSpeed = 960f;
     private float reachDistance = 1000f;
 
@@ -34,6 +34,7 @@ public class Player : Entity
 
     public void Update()
     {
+        rigidbody.velocity.x *= 0.1f;
         HandleInput();
         PositionArms();
     }
@@ -41,11 +42,10 @@ public class Player : Entity
     public void HandleInput()
     {
         rigidbody.AddForce(new Vec2(speed, 0) * GameBehaviour.GetHorizontalAxis());
+
         if (Input.GetKeyDown(Key.SPACE)) {
             rigidbody.AddForce(new Vec2(0, -382f), false);
         }
-
-        
 
         if (IsGrounded() && Input.GetMouseButtonDown(0))
         {

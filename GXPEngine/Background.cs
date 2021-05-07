@@ -13,23 +13,23 @@ class Background : GameObject
     public List<UVOffsetSprite> layers = new List<UVOffsetSprite>();
 
     public Background(string[] _layers)
-    {        
-        foreach(string _layer in _layers)
-        {              
-            layers.Add(new UVOffsetSprite(_layer));               
+    {
+        foreach (string _layer in _layers)
+        {
+            layers.Add(new UVOffsetSprite(_layer));
         }
 
-        foreach(Sprite layer in layers)
+        foreach (Sprite layer in layers)
         {
             AddChild(layer);
         }
     }
 
-    public void MoveLayersWithDistance(float[] _layerDistances, float playerVelocityX)
+    public void MoveLayersWithDistance(float[] _layerDistances, Vec2 playerVelocity)
     {
-        for(int i = 0; i < _layerDistances.Length; i++)
+        for (int i = 0; i < _layerDistances.Length; i++)
         {
-            layers[i].AddOffset(((playerVelocityX *= _layerDistances[i]) / 10000), 0f);
+            layers[i].AddOffset(((playerVelocity.x *= _layerDistances[i]) / 10000), (playerVelocity.y *= _layerDistances[i]) / 5000);
         }
     }
 }

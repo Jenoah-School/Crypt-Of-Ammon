@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 class TestLevelJenoah : Level
 {
-    public TestLevelJenoah() : base("Assets/Sprites/Backgrounds/TempBackground.jpg")
+    public TestLevelJenoah()
     {
         Entity floor = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 2 + 128, game.height - 32), game.width - 256, 64, false, true, float.PositiveInfinity, 0f);
         Entity rightWall = new Entity("Assets/Sprites/square.png", new Vec2(game.width - 32, game.height / 2), 64, game.height, false, true, float.PositiveInfinity, 0f);

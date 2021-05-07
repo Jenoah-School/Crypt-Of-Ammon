@@ -21,7 +21,9 @@ namespace GXPEngine
             myGame = (MyGame)game;
 
             levels.Add(new TestLevelArjen());
-            levels.Add(new TestLevelJenoah());
+
+            levels.Add(new TestLevelArjen2());
+            levels.Add(new TestLevelJenoah1());
 
             SwitchLevel(0);
         }

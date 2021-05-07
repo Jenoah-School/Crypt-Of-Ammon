@@ -13,19 +13,26 @@ public class Level : GameObject
 
     public Sprite backgroundImage;
 
-    public Level(string _backgroundImage = "")
+    public Player player;
+    public Camera cam;
+    private bool _isLoaded;
+    public Vec2 currentLevelSize;
+
+    public Level()
     {
-        //_backgroundImage can be kept empty to use no background
-        AddBackGround(_backgroundImage);
+        cam = new Camera(0, 0, 1920, 1080);
+        cam.scale *= 1.5f;
     }
 
     public virtual void Load()
     {
+        _isLoaded = true;
         MyGame.collisionObjects.Clear();
         for (int i = 0; i < sceneObjects.Count; i++)
         {
             MyGame.collisionObjects.Add(sceneObjects[i].collider);
         }
+
         //Start audio (again)
     }
 
@@ -33,25 +40,41 @@ public class Level : GameObject
     {
         foreach (Entity _ent in sceneObjects.ToList())
         {
-            _ent.Step();
+            if (_isLoaded == false) return;
+            foreach (Entity _ent in sceneObjects)
+            {
+                _ent.Step();
+            }
         }
-    }
-
-    protected void AddBackGround(string _backgroundImage)
-    {
-        if (!string.IsNullOrEmpty(_backgroundImage))
-        {
-            backgroundImage = new Sprite(_backgroundImage, false, false);
-            float aspectRatio = (float)backgroundImage.height / (float)backgroundImage.width;
-            backgroundImage.width = game.width;
-            backgroundImage.height = (int)(backgroundImage.width * aspectRatio);
-
-            AddChild(backgroundImage);
-        }
-    }
+        SetCameraPosition();
 
     public virtual void Unload()
     {
-        //Stop audio
+        //if (!string.IsNullOrEmpty(_backgroundImage))
+        //{
+        //    backgroundImage = new Sprite(_backgroundImage, false, false);
+        //    float aspectRatio = (float)backgroundImage.height / (float)backgroundImage.width;
+        //    backgroundImage.width = game.width;
+        //    backgroundImage.height = (int)(backgroundImage.width * aspectRatio);
+
+        //    AddChild(backgroundImage);
+        //}
+
+        MyGame.Instance.RemoveChild(this);
+        _isLoaded = false;
+    }
+
+    void SetCameraPosition()
+    {
+        Vec2 lerp = Vec2.Lerp(new Vec2(cam.x, cam.y), new Vec2(player.x + (game.width / 2.19f), player.y), 0.9f);
+
+        if (player.x > 900 && player.x < (currentLevelSize.x - 900))
+        {
+            cam.SetXY(lerp.x, lerp.y);
+        }
+        else
+        {
+            cam.SetXY(cam.x, lerp.y);
+        }
     }
 }

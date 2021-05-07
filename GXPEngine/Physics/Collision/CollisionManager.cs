@@ -17,7 +17,7 @@ public static class CollisionManager
             Collider other = MyGame.collisionObjects[i];
             if (other == collider || collider.owner.ignoreColliders.Contains(other) || other.owner.ignoreColliders.Contains(collider)) break;
 
-            Collision collision = collider.GetCollisionInfo(other);
+        Collision collision = collider.GetCollisionInfo(other);
             if (collision != null && collision.timeOfImpact < _minTOI)
             {
                 _firstCollision = collision;

@@ -17,17 +17,16 @@ public class Entity : AnimationSprite
 
     public Action _collisionEvent = null;
     public Collision _collidedObject = null;
-    public List<Collider> ignoreColliders = new List<Collider>();
-
     protected Collider[] _subColliders = null;
 
+    public List<Collider> ignoreColliders = new List<Collider>();
     public bool skipResolve = false;
 
     public Entity(string _fileName, Vec2 _position, int _width, int _height = -1, bool _useGravity = true, bool _checkForCollision = true, float _mass = 1f, float _bounciness = 0.5f, int _rows = 1, int _cols = 1, int _frames = 1) : base(_fileName, _cols, _rows, _frames, false, true)
     {
         SetOrigin(width / 2, height / 2);
 
-        height = _height == -1 ? _width * (width / height) : _height;
+        height = _height == -1 ? (int)(_width * ((float)height / (float)width)) : _height;
         width = _width;
         position = _position;
 
