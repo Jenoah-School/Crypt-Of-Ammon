@@ -56,6 +56,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -65,12 +66,15 @@
     <Compile Include="Background.cs" />
     <Compile Include="GXPEngine\GameObject.cs" />
     <Compile Include="Interactibles\Door.cs" />
+    <Compile Include="Levels\HorizontalLevel.cs" />
+    <Compile Include="Levels\HubLevel.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelManager.cs" />
     <Compile Include="Levels\TestLevelArjen.cs" />
     <Compile Include="Levels\TestLevelArjen2.cs" />
     <Compile Include="Levels\TestLevelJenoah.cs" />
     <Compile Include="Levels\TestLevelJenoah1.cs" />
+    <Compile Include="Levels\VerticalLevel.cs" />
     <Compile Include="Physics\Collision\CollisionInfo.cs" />
     <Compile Include="Physics\Collision\CollisionManager.cs" />
     <Compile Include="Physics\Collision\CircleCollider.cs" />

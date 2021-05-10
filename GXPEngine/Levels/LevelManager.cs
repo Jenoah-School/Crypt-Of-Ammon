@@ -19,6 +19,13 @@ namespace GXPEngine
         {
             myGame = (MyGame)game;
 
+            levels.Add(new HubLevel());
+            levels.Add(new HorizontalLevel());
+            levels.Add(new VerticalLevel());
+
+
+            levels.Add(new TestLevelArjen());
+            levels.Add(new TestLevelArjen());
             levels.Add(new TestLevelArjen());
             levels.Add(new TestLevelArjen2());
             levels.Add(new TestLevelJenoah1());
