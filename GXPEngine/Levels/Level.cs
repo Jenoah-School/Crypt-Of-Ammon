@@ -1,6 +1,7 @@
 ﻿using GXPEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class Level : GameObject
 {
@@ -13,7 +14,6 @@ public class Level : GameObject
 
     public Sprite backgroundImage;
 
-    public Player player;
     public Camera cam;
     private bool _isLoaded;
     public Vec2 currentLevelSize;
@@ -41,12 +41,17 @@ public class Level : GameObject
         foreach (Entity _ent in sceneObjects.ToList())
         {
             if (_isLoaded == false) return;
-            foreach (Entity _ent in sceneObjects)
-            {
-                _ent.Step();
-            }
+            _ent.Step();
         }
         SetCameraPosition();
+        Vec2 localPlayerPos = new Vec2(cam.x, cam.y) - player.position;
+        localPlayerPos = new Vec2(game.width, game.height) - localPlayerPos - (new Vec2(player.width, player.height) / 2f);
+        localPlayerPos = new Vec2(cam.InverseTransformDirection(player.x, player.y));
+        Console.WriteLine(localPlayerPos);
+        //localPlayerPos = new Vec2(game.width, game.height) - localPlayerPos;
+        Gizmos.DrawCross(localPlayerPos.x, localPlayerPos.y, 30);
+        player.levelOffset = localPlayerPos;// new Vec2(cam.x, cam.y) - new Vec2(player.position.x, 0);//new Vec2(cam.TransformDirection(player.x, player.y));
+    }
 
     public virtual void Unload()
     {
@@ -64,7 +69,7 @@ public class Level : GameObject
         _isLoaded = false;
     }
 
-    void SetCameraPosition()
+    public virtual void SetCameraPosition()
     {
         Vec2 lerp = Vec2.Lerp(new Vec2(cam.x, cam.y), new Vec2(player.x + (game.width / 2.19f), player.y), 0.9f);
 

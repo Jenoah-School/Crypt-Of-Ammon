@@ -12,7 +12,6 @@ namespace GXPEngine
     {
         public Level currentLevel { get; private set; }
         private List<Level> levels = new List<Level>();
-        
 
         MyGame myGame;
 
@@ -21,7 +20,6 @@ namespace GXPEngine
             myGame = (MyGame)game;
 
             levels.Add(new TestLevelArjen());
-
             levels.Add(new TestLevelArjen2());
             levels.Add(new TestLevelJenoah1());
 
@@ -32,7 +30,7 @@ namespace GXPEngine
         {
             if (_levelId < levels.Count)
             {
-                
+
                 if (currentLevel != null)
                 {
                     currentLevel.Unload();

@@ -15,8 +15,7 @@ class IK : GameObject
 
         upperArm = new IKSegment(_upperArmfilename, new Vec2(0, 0), _startAngle);
         lowerArm = new IKSegment(_lowerArmfilename, upperArm);
-        upperArm.SetColor(1, 0, 0);
-
+        //upperArm.SetColor(1, 0, 0);
 
         SetXY(_position.x, _position.y);
 

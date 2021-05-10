@@ -2,9 +2,13 @@
 
 class TestLevelJenoah1 : Level
 {
-    public TestLevelJenoah1() : base("Assets/Sprites/Backgrounds/thumbnail.png")
+    Background background;
+    public TestLevelJenoah1()
     {
-        backgroundImage.scale = 1f;
+        //backgroundImage.scale = 1f;
+        background = new Background(new string[] { "Assets/Sprites/Backgrounds/thumbnail.png" });
+        currentLevelSize = new Vec2(1280, game.height);
+        
 
         Entity floor = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 2, game.height - 16), game.width, 48, false, true, float.PositiveInfinity, 0f);
         Entity leftFloorBlockPiece = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 13.75f, game.height - 48), 156, 24, false, true, float.PositiveInfinity, 0f);
@@ -14,20 +18,20 @@ class TestLevelJenoah1 : Level
         Entity centerPiece = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 2, game.height / 2 + 112), 128, 32, false, true, float.PositiveInfinity, 0f);
         Entity rightCenterPiece = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 2 + 320, game.height / 2 - 90), 128, 32, false, true, float.PositiveInfinity, 0f);
         Entity rightPiece = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 1.11f, game.height / 2 + 252), 256, 148, false, true, float.PositiveInfinity, 0f);
-        Entity rightSlope = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 1.38f, game.height - 40), 312, 148, false, true, float.PositiveInfinity, 0f);
+        Entity rightSlope = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 1.41f, game.height + 20), 312, 148, false, true, float.PositiveInfinity, 0f);
         Entity leftWall = new Entity("Assets/Sprites/square.png", new Vec2(8, game.height / 2), 16, game.height, false, true, float.PositiveInfinity, 0f);
         Entity pushBox = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 5f, game.height / 2 - 64f), 48, -1, true, true, 1, 0);
         //Entity pushBox = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 1.3f, game.height / 2 - 136f), 48, -1, true, true, 1, 0);
 
-        floor.visible = false;
-        leftFloorBlockPiece.visible = false;
-        leftWall.visible = false;
-        leftPiece.visible = false;
-        leftPieceSlope.visible = false;
-        rightCenterPiece.visible = false;
-        centerPiece.visible = false;
-        rightSlope.visible = false;
-        rightPiece.visible = false;
+        //floor.visible = false;
+        //leftFloorBlockPiece.visible = false;
+        //leftWall.visible = false;
+        //leftPiece.visible = false;
+        //leftPieceSlope.visible = false;
+        //rightCenterPiece.visible = false;
+        //centerPiece.visible = false;
+        //rightSlope.visible = false;
+        //rightPiece.visible = false;
 
         Trigger pressurePlate1 = new Trigger("Assets/Sprites/square.png", new Vec2(game.width / 1.1f, rightPiece.position.y - rightPiece.height / 2f), 64, 8);
         player = new Player(new Vec2(game.width / 2, game.height / 2), 64, 127);
@@ -54,7 +58,7 @@ class TestLevelJenoah1 : Level
         pressurePlate1.ignoreColliders.Add(player.collider);
 
         rightSlope._collisionEvent = new Action(() => Console.WriteLine(rightSlope._collidedObject.other.owner));
-
+        
         sceneObjects.Add(floor);
         sceneObjects.Add(leftFloorBlockPiece);
         sceneObjects.Add(leftPiece);
@@ -76,6 +80,7 @@ class TestLevelJenoah1 : Level
         pressurePlate1.SetTriggerEvent(new Action(() => pressurePlate1.SetColor(0.3f, 0.3f, 0.3f)));
         pressurePlate1.SetUntriggerEvent(new Action(() => pressurePlate1.SetColor(0.9f, 0.9f, 0.9f)));
 
+        AddChild(background);
         AddChild(floor);
         AddChild(leftFloorBlockPiece);
         AddChild(leftPiece);
@@ -90,5 +95,23 @@ class TestLevelJenoah1 : Level
         AddChild(pressurePlate1);
         AddChild(pushBox);
         AddChild(player);
+        AddChild(cam);
+
+        cam.SetXY(game.width / 1.25f, game.height / 2f);
+        cam.scale *= 0.65f;
+    }
+
+    public override void SetCameraPosition()
+    {
+        Vec2 lerp = Vec2.Lerp(new Vec2(cam.x, cam.y), new Vec2(player.x + (game.width / 2.19f), 534), 0.9f);
+
+        if (player.x > 900 && player.x < (currentLevelSize.x - 900))
+        {
+            cam.SetXY(lerp.x, lerp.y);
+        }
+        else
+        {
+            cam.SetXY(cam.x, lerp.y);
+        }
     }
 }

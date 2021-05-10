@@ -9,7 +9,6 @@ public class MyGame : Game
 {
 	public static MyGame Instance;
 	public static List<Collider> collisionObjects = new List<Collider>();
-	public static MyGame Instance;
 	public LevelManager levelManager;
 	public UIManager UserInterfaceManager;
 
@@ -27,12 +26,12 @@ public class MyGame : Game
 		targetFps = 60;
 
 		AddChild(levelManager);
-		AddChild(UserInterfaceManager);		
+		//AddChild(UserInterfaceManager);		
 	}
 
 	void Update()
     {
-		SetChildIndex(UserInterfaceManager, 10000);
+		//SetChildIndex(UserInterfaceManager, 10000);
 	}
 
 	static void Main()

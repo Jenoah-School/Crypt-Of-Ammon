@@ -46,7 +46,7 @@ class Trigger : Entity
         }
 
         isPressed = false;
-        foreach (Entity _sender in MyGame.Instance.currentLevel.pressureSenders.ToList())
+        foreach (Entity _sender in MyGame.Instance.levelManager.currentLevel.pressureSenders.ToList())
         {
             if (HitTest(_sender))
             {

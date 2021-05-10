@@ -2,9 +2,11 @@
 
 public class Player : Entity
 {
-    private float speed = 400f;
+    public Vec2 levelOffset = new Vec2();
+
+    private float speed = 5f;
     private float thrustSpeed = 960f;
-    private float reachDistance = 1000f;
+    private float reachDistance = 350f;
 
     private IK leftArm, rightArm;
     private Entity pole;
@@ -14,13 +16,13 @@ public class Player : Entity
 
     public Player(Vec2 _position, int _width, int _height = -1) : base("Assets/Sprites/Player/torso.png", _position, _width, _height, true, true, 1, 0)
     {
-        pole = new Entity("Assets/Sprites/Player/staff_and_hands.png", new Vec2(0, 0), 256, 1536, false, false, 1, 0); ;
+        pole = new Entity("Assets/Sprites/Player/handStaff.png", new Vec2(0, 0), 96, 576, false, false, 1, 0); ;
 
         leftHandTarget = new Sprite("Assets/Sprites/transparency.png", true, false);
         rightHandTarget = new Sprite("Assets/Sprites/transparency.png", true, false);
 
-        leftArm = new IK("Assets/Sprites/Gradient.png", "Assets/Sprites/Gradient.png", new Vec2(-96, -300), 0, leftHandTarget, 768, 384);
-        rightArm = new IK("Assets/Sprites/Gradient.png", "Assets/Sprites/Gradient.png", new Vec2(192, -300), 180, rightHandTarget, 768, 384);
+        leftArm = new IK("Assets/Sprites/Player/leftHand.png", "Assets/Sprites/Player/leftArm.png", new Vec2(-128, -128), 0, leftHandTarget, 1, -1);
+        rightArm = new IK("Assets/Sprites/Player/rightHand.png", "Assets/Sprites/Player/rightArm.png", new Vec2(128, -128), 0, rightHandTarget, 1, -1);
 
         //thurstSound = new Sound("Assets/Audio/SoundFX/thrust.mp3");
 
@@ -34,22 +36,26 @@ public class Player : Entity
 
     public void Update()
     {
-        rigidbody.velocity.x *= 0.1f;
+        if (IsGrounded())
+            rigidbody.velocity.x *= 0.96f;
         HandleInput();
         PositionArms();
     }
 
     public void HandleInput()
     {
-        rigidbody.AddForce(new Vec2(speed, 0) * GameBehaviour.GetHorizontalAxis());
-
-        if (Input.GetKeyDown(Key.SPACE)) {
+        if (Input.GetKeyDown(Key.SPACE))
+        {
             rigidbody.AddForce(new Vec2(0, -382f), false);
         }
 
-        if (IsGrounded() && Input.GetMouseButtonDown(0))
+        if (IsGrounded())
         {
-            Thrust();
+            rigidbody.AddForce(new Vec2(speed, 0) * GameBehaviour.GetHorizontalAxis());
+            if (Input.GetMouseButtonDown(0))
+            {
+                Thrust();
+            }
         }
     }
 
@@ -57,16 +63,16 @@ public class Player : Entity
     {
         Vec2 poleTargetPos = new Vec2(1f, 0f);
 
-        float poleTargetRotation = Mathf.Atan2(y - Input.mouseY, x - Input.mouseX) * Vec2.Rad2Deg + 180f;
+        float poleTargetRotation = Mathf.Atan2(levelOffset.y - Input.mouseY, levelOffset.x - Input.mouseX) * Vec2.Rad2Deg + 180f;
         float distanceFromMouse = Mathf.Clamp((position - new Vec2(Input.mouseX, Input.mouseY)).Length() * 12f, 0, reachDistance);
         poleTargetPos.RotateDegrees(poleTargetRotation);
         poleTargetPos *= distanceFromMouse;
 
         pole.SetXY(poleTargetPos.x, poleTargetPos.y);
-        pole.rotation = poleTargetRotation - 90;
+        pole.rotation = poleTargetRotation + 90;
 
-        Vec2 leftHandTargetPos = poleTargetPos - new Vec2(pole.TransformDirection(-960, 4096));
-        Vec2 rightHandTargetPos = poleTargetPos - new Vec2(pole.TransformDirection(960, 4096));
+        Vec2 leftHandTargetPos = poleTargetPos - new Vec2(pole.TransformDirection(-256, 128));
+        Vec2 rightHandTargetPos = poleTargetPos - new Vec2(pole.TransformDirection(256, 128));
 
         leftHandTarget.SetXY(leftHandTargetPos.x, leftHandTargetPos.y);
         rightHandTarget.SetXY(rightHandTargetPos.x, rightHandTargetPos.y);
@@ -80,15 +86,15 @@ public class Player : Entity
 
     private void Thrust()
     {
-        
-            position += new Vec2(0, 5f);
-            skipResolve = true;
-            Vec2 thrustForce = new Vec2(0, -thrustSpeed);
-            thrustForce.RotateDegrees(pole.rotation);
-            rigidbody.AddForce(thrustForce);
-            if(thurstSound != null)
-            {
-                thurstSound.Play();
-            }
+
+        position += new Vec2(0, 5f);
+        skipResolve = true;
+        Vec2 thrustForce = new Vec2(0, -thrustSpeed);
+        thrustForce.RotateDegrees(pole.rotation);
+        rigidbody.AddForce(thrustForce);
+        if (thurstSound != null)
+        {
+            thurstSound.Play();
+        }
     }
 }

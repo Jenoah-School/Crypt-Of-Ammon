@@ -61,13 +61,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation.cs" />
     <Compile Include="Background.cs" />
+    <Compile Include="GXPEngine\GameObject.cs" />
     <Compile Include="Interactibles\Door.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelManager.cs" />
     <Compile Include="Levels\TestLevelArjen.cs" />
     <Compile Include="Levels\TestLevelArjen2.cs" />
     <Compile Include="Levels\TestLevelJenoah.cs" />
+    <Compile Include="Levels\TestLevelJenoah1.cs" />
     <Compile Include="Physics\Collision\CollisionInfo.cs" />
     <Compile Include="Physics\Collision\CollisionManager.cs" />
     <Compile Include="Physics\Collision\CircleCollider.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="GameBehaviour.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
+    <Compile Include="Physics\IK.cs" />
     <Compile Include="Physics\Player.cs" />
     <Compile Include="Physics\Rigidbody.cs" />
     <Compile Include="Physics\Collision\LineCollider.cs" />
@@ -83,7 +87,6 @@
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Canvas.cs" />
     <Compile Include="GXPEngine\Game.cs" />
-    <Compile Include="GXPEngine\Entity.cs" />
     <Compile Include="GXPEngine\Sound.cs" />
     <Compile Include="GXPEngine\SoundChannel.cs" />
     <Compile Include="GXPEngine\Sprite.cs" />
@@ -120,6 +123,7 @@
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
     <Compile Include="Physics\PhysicsMaterial.cs" />
     <Compile Include="Physics\PhysicsMaterials\Metal.cs" />
+    <Compile Include="Physics\Trigger.cs" />
     <Compile Include="UI%27s\Button.cs" />
     <Compile Include="UI%27s\LoadScreenGameLogo.cs" />
     <Compile Include="UI%27s\LoadScreenTeamLogo.cs" />

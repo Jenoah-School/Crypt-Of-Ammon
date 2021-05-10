@@ -90,9 +90,9 @@ public class Entity : AnimationSprite
     public bool IsGrounded()
     {
         //return (position - previousPosition).y > -0.4f && (position - previousPosition).y < 0.4f;
-        foreach(Entity _ent in MyGame.Instance.currentLevel.sceneObjects.ToList())
+        foreach(Entity _ent in MyGame.Instance.levelManager.currentLevel.sceneObjects.ToList())
         {
-            if(_ent == MyGame.Instance.currentLevel.player)
+            if(_ent == MyGame.Instance.levelManager.currentLevel.player)
             {
                 continue;
             }
