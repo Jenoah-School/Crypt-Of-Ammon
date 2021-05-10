@@ -46,10 +46,10 @@ public class Level : GameObject
         SetCameraPosition();
         Vec2 localPlayerPos = new Vec2(cam.x, cam.y) - player.position;
         localPlayerPos = new Vec2(game.width, game.height) - localPlayerPos - (new Vec2(player.width, player.height) / 2f);
-        localPlayerPos = new Vec2(cam.InverseTransformDirection(player.x, player.y));
-        Console.WriteLine(localPlayerPos);
+        localPlayerPos = new Vec2(TransformPoint(player.x, player.y));
+        //Console.WriteLine(localPlayerPos);
         //localPlayerPos = new Vec2(game.width, game.height) - localPlayerPos;
-        Gizmos.DrawCross(localPlayerPos.x, localPlayerPos.y, 30);
+        Gizmos.DrawCross(player.x, player.y, 30, player.parent);
         player.levelOffset = localPlayerPos;// new Vec2(cam.x, cam.y) - new Vec2(player.position.x, 0);//new Vec2(cam.TransformDirection(player.x, player.y));
     }
 
@@ -71,7 +71,7 @@ public class Level : GameObject
 
     public virtual void SetCameraPosition()
     {
-        Vec2 lerp = Vec2.Lerp(new Vec2(cam.x, cam.y), new Vec2(player.x + (game.width / 2.19f), player.y), 0.9f);
+        Vec2 lerp = Vec2.Lerp(new Vec2(cam.x, cam.y), new Vec2(player.x + (game.width / 2.19f), player.y + game.height / 8f), 0.9f); ;
 
         if (player.x > 900 && player.x < (currentLevelSize.x - 900))
         {

@@ -63,7 +63,8 @@ public class Player : Entity
     {
         Vec2 poleTargetPos = new Vec2(1f, 0f);
 
-        float poleTargetRotation = Mathf.Atan2(levelOffset.y - Input.mouseY, levelOffset.x - Input.mouseX) * Vec2.Rad2Deg + 180f;
+        Vec2 playerPos = new Vec2(MyGame.Instance.levelManager.currentLevel.TransformPoint(x, y));
+        float poleTargetRotation = Mathf.Atan2(playerPos.y - Input.mouseY, playerPos.x - Input.mouseX) * Vec2.Rad2Deg + 180f;
         float distanceFromMouse = Mathf.Clamp((position - new Vec2(Input.mouseX, Input.mouseY)).Length() * 12f, 0, reachDistance);
         poleTargetPos.RotateDegrees(poleTargetRotation);
         poleTargetPos *= distanceFromMouse;

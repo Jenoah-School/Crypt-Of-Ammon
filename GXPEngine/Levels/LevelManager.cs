@@ -25,12 +25,10 @@ namespace GXPEngine
 
 
             levels.Add(new TestLevelArjen());
-            levels.Add(new TestLevelArjen());
-            levels.Add(new TestLevelArjen());
             levels.Add(new TestLevelArjen2());
             levels.Add(new TestLevelJenoah1());
 
-            SwitchLevel(0);
+            SwitchLevel(3);
         }
 
         public void SwitchLevel(int _levelId)
