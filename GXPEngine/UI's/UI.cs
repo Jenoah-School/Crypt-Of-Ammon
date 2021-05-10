@@ -10,9 +10,10 @@ public class UI : Canvas
 {
     public float timeMillis = 0;
     public float timeSeconds = 0;
+
     public UI() : base(1920, 1080, false)
     {
-        
+
     }
 
     protected virtual void Update()
