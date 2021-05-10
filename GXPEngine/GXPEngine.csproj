@@ -133,6 +133,7 @@
     <Compile Include="UI%27s\LoadScreenTeamLogo.cs" />
     <Compile Include="UI%27s\MainMenu.cs" />
     <Compile Include="UI%27s\PlayingUI.cs" />
+    <Compile Include="UI%27s\SymbolPuzzleUI.cs" />
     <Compile Include="UI%27s\UI.cs" />
     <Compile Include="UI%27s\UIManager.cs" />
     <Compile Include="UVOffsetSprite.cs" />
