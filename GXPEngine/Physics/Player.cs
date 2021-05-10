@@ -6,7 +6,7 @@ public class Player : Entity
     public Vec2 levelOffset = new Vec2();
 
     private float speed = 5f;
-    private float thrustSpeed = 960f;
+    private float thrustSpeed = 1768f;
     private float reachDistance = 350f;
 
     private IK leftArm, rightArm;
@@ -29,7 +29,7 @@ public class Player : Entity
 
         mouseTemp = new Sprite("Assets/Sprites/square.png", false, false);
 
-        thurstSound = new Sound("Assets/Audio/SoundFX/thrust.mp3");
+        thurstSound = new Sound("Assets/Audio/SoundFX/thrust.wav");
 
         AddChild(leftHandTarget);
         AddChild(rightHandTarget);

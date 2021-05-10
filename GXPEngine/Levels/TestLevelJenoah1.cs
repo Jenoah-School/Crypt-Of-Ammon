@@ -56,8 +56,6 @@ class TestLevelJenoah1 : Level
 
         pressurePlate1.ignoreColliders.Add(pushBox.collider);
         pressurePlate1.ignoreColliders.Add(player.collider);
-
-        rightSlope._collisionEvent = new Action(() => Console.WriteLine(rightSlope._collidedObject.other.owner));
         
         sceneObjects.Add(floor);
         sceneObjects.Add(leftFloorBlockPiece);
