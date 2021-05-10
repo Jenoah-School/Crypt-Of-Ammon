@@ -23,7 +23,7 @@ public class TestLevelArjen : Level
         currentLevelSize = new Vec2(3840, 2160);
 
         Entity floor = new Entity("Assets/Sprites/empty.png", new Vec2(2000, 2100), 4000, 64, false, true, float.PositiveInfinity, 0);
-        door1 = new Door(new Vec2(2000, 2000), 75, 100, 1, false);    
+        door1 = new Door(new Vec2(2000, 2000), 75, 100, 1, false);
 
         AddChild(background);
         AddChild(door1);

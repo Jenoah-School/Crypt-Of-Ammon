@@ -14,13 +14,16 @@ public class Level : GameObject
 
     public Sprite backgroundImage;
 
+    public bool canMove = true;
+
     public Camera cam;
     private bool _isLoaded;
     public Vec2 currentLevelSize;
 
     public Level()
     {
-        cam = new Camera(0, 0, 1920, 1080);
+        //cam = new Camera(0, 0, 1920, 1080);
+        cam = new Camera(0, 0, game.width, game.height);
         cam.scale *= 1.5f;
     }
 
@@ -44,13 +47,6 @@ public class Level : GameObject
             _ent.Step();
         }
         SetCameraPosition();
-        Vec2 localPlayerPos = new Vec2(cam.x, cam.y) - player.position;
-        localPlayerPos = new Vec2(game.width, game.height) - localPlayerPos - (new Vec2(player.width, player.height) / 2f);
-        localPlayerPos = new Vec2(TransformPoint(player.x, player.y));
-        //Console.WriteLine(localPlayerPos);
-        //localPlayerPos = new Vec2(game.width, game.height) - localPlayerPos;
-        Gizmos.DrawCross(player.x, player.y, 30, player.parent);
-        player.levelOffset = localPlayerPos;// new Vec2(cam.x, cam.y) - new Vec2(player.position.x, 0);//new Vec2(cam.TransformDirection(player.x, player.y));
     }
 
     public virtual void Unload()

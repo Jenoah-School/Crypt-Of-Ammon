@@ -28,7 +28,7 @@ namespace GXPEngine
             levels.Add(new TestLevelArjen2());
             levels.Add(new TestLevelJenoah1());
 
-            SwitchLevel(3);
+            SwitchLevel(1);
         }
 
         public void SwitchLevel(int _levelId)

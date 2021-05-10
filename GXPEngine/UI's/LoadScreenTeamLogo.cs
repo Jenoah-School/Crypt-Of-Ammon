@@ -19,6 +19,9 @@ class LoadScreenTeamLogo : UI
         
         logo.SetOrigin(logo.width / 2, logo.height / 2);
 
+        logo.width = (int)(game.height * ((float)logo.width / (float)logo.height));
+        logo.height = game.height;
+
         logo.SetXY(width / 2, height / 2);
         logo.alpha = 0;
         AddChild(logo);

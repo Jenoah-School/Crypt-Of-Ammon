@@ -11,18 +11,24 @@ public class UI : Canvas
     public float timeMillis = 0;
     public float timeSeconds = 0;
 
-    public UI() : base(1920, 1080, false)
+    public UI() : base(MyGame.Instance.width, MyGame.Instance.height, false)
     {
 
     }
 
     protected virtual void Update()
     {
-        width = Mathf.Round(game.width * 1.51f);
-        height = Mathf.Round(game.height * 1.51f);
+        Camera myCamera = MyGame.Instance.levelManager.currentLevel.cam;
+        Window myWindow = myCamera._renderTarget;
 
-        x = MyGame.Instance.levelManager.currentLevel.cam.x - 1443;
-        y = MyGame.Instance.levelManager.currentLevel.cam.y - 810;
+        width = (int)(myWindow.width * myCamera.scale);
+        height = (int)(myWindow.height * myCamera.scale);
+
+        x = myCamera.x - width / 2f;
+        y = myCamera.y - height / 2f;
+
+        //x = MyGame.Instance.levelManager.currentLevel.cam.x - 960 * MyGame.Instance.levelManager.currentLevel.cam.scale;
+        //y = MyGame.Instance.levelManager.currentLevel.cam.y - 525 * MyGame.Instance.levelManager.currentLevel.cam.scale;
 
         timeMillis += Time.deltaTime;
         timeSeconds = Mathf.Round(timeMillis / 1000);

@@ -12,7 +12,7 @@ public class MyGame : Game
 	public LevelManager levelManager;
 	public UIManager UserInterfaceManager;
 
-	public MyGame() : base(1180, 600, false, false)	
+	public MyGame() : base(1280, 720, false, false)	
 	{
 		Instance = this;
 
@@ -21,7 +21,7 @@ public class MyGame : Game
 
 		RenderMain = false;
 		levelManager = new LevelManager();
-		UserInterfaceManager = new UIManager();
+		//UserInterfaceManager = new UIManager();
 
 		targetFps = 60;
 

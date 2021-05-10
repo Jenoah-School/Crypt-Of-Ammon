@@ -20,12 +20,14 @@ public class HorizontalLevel : Level
         Entity leftFloorBlockPiece = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 96, floor.y - floor.height / 2f - 32), 192, 64, false, true, float.PositiveInfinity, 0f);
         Entity leftPiece = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 580, currentLevelSize.y / 2 - 36), 1160, 64, false, true, float.PositiveInfinity, 0f);
         Entity leftPieceSlope = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 560, currentLevelSize.y / 2 + 148), 1200, 64, false, true, float.PositiveInfinity, 0f);
-        Entity leftBlockPiece = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 128, currentLevelSize.y / 2), 256, 64, false, true, float.PositiveInfinity, 0f);
-        //Entity centerPiece = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 2, game.height / 2 + 112), 128, 32, false, true, float.PositiveInfinity, 0f);
+        Entity leftBlockPiece = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 128, currentLevelSize.y / 2 - 96), 256, 64, false, true, float.PositiveInfinity, 0f);
+        Entity centerPiece = new Entity("Assets/Sprites/square.png", new Vec2(1916, currentLevelSize.y / 2f + 376), 384, 96, false, true, float.PositiveInfinity, 0f);
         //Entity rightCenterPiece = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 2 + 320, game.height / 2 - 90), 128, 32, false, true, float.PositiveInfinity, 0f);
-        //Entity rightPiece = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 1.11f, game.height / 2 + 252), 256, 148, false, true, float.PositiveInfinity, 0f);
-        //Entity rightSlope = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 1.41f, game.height + 20), 312, 148, false, true, float.PositiveInfinity, 0f);
+        Entity rightPiece = new Entity("Assets/Sprites/square.png", new Vec2(3586, currentLevelSize.y - 290), 1024, 512, false, true, float.PositiveInfinity, 0f);
+        Entity rightSlope = new Entity("Assets/Sprites/square.png", new Vec2(2762, currentLevelSize.y - 69), 1024, 512, false, true, float.PositiveInfinity, 0f);
         //Entity pushBox = new Entity("Assets/Sprites/square.png", new Vec2(game.width / 5f, game.height / 2 - 64f), 48, -1, true, true, 1, 0);
+
+        rightSlope.rotation = 330;
 
         leftPieceSlope.rotation = 345;
 
@@ -35,11 +37,15 @@ public class HorizontalLevel : Level
         sceneObjects.Add(leftPiece);
         sceneObjects.Add(leftPieceSlope);
         sceneObjects.Add(leftBlockPiece);
+        sceneObjects.Add(centerPiece);
+        sceneObjects.Add(rightPiece);
+        sceneObjects.Add(rightSlope);
+
         //sceneObjects.Add(centerPiece);
         //sceneObjects.Add(rightCenterPiece);
-        //sceneObjects.Add(rightPiece);
-        //sceneObjects.Add(rightSlope);
         //sceneObjects.Add(leftBlockPiece);
+
+        sceneObjects.Add(player);
 
         leftWall.ignoreColliders.Add(floor.collider);
         leftFloorBlockPiece.ignoreColliders.Add(floor.collider);
@@ -49,6 +55,9 @@ public class HorizontalLevel : Level
         leftPiece.ignoreColliders.Add(leftPieceSlope.collider);
         leftBlockPiece.ignoreColliders.Add(leftWall.collider);
         leftBlockPiece.ignoreColliders.Add(leftPiece.collider);
+        rightPiece.ignoreColliders.Add(floor.collider);
+        rightSlope.ignoreColliders.Add(floor.collider);
+        rightPiece.ignoreColliders.Add(rightSlope.collider);
 
 
         AddChild(background);
@@ -58,16 +67,16 @@ public class HorizontalLevel : Level
         AddChild(leftPiece);
         AddChild(leftPieceSlope);
         AddChild(leftBlockPiece);
-        //AddChild(centerPiece);
+        AddChild(centerPiece);
+        AddChild(rightPiece);
+        AddChild(rightSlope);
         //AddChild(rightCenterPiece);
-        //AddChild(rightPiece);
-        //AddChild(rightSlope);
 
         AddChild(player);
         AddChild(cam);
 
         //cam.SetXY(1424, 768);
-        cam.SetXY(2846, 768);
+        cam.SetXY(game.width * 1.5f, currentLevelSize.y / 2f);
         cam.scale = 3f;
     }
 
@@ -84,6 +93,8 @@ public class HorizontalLevel : Level
 
     public override void SetCameraPosition()
     {
+        return;
+
         Vec2 lerp = Vec2.Lerp(new Vec2(cam.x, cam.y), new Vec2(player.x + (game.width / 2.19f), 2048), 0.9f);
 
         if (player.x > 900 && player.x < (currentLevelSize.x - 900))
