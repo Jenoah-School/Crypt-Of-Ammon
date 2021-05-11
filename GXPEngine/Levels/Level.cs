@@ -22,14 +22,9 @@ public class Level : GameObject
 
     public Level()
     {
-<<<<<<< HEAD
-        cam = new Camera(0, 0, 1920, 1080);
-        cam.scale *= 3f;
-=======
         //cam = new Camera(0, 0, 1920, 1080);
         cam = new Camera(0, 0, game.width, game.height);
         cam.scale *= 1.5f;
->>>>>>> 2a306d339952a0f699307eecf7ed964a49eac488
     }
 
     public virtual void Load()
@@ -72,11 +67,7 @@ public class Level : GameObject
 
     public virtual void SetCameraPosition()
     {
-<<<<<<< HEAD
-        Vec2 lerp = Vec2.Lerp(new Vec2(cam.x, cam.y), new Vec2(player.x + (game.width / 2.19f), player.y + game.height / 8), 0.9f);
-=======
         Vec2 lerp = Vec2.Lerp(new Vec2(cam.x, cam.y), new Vec2(player.x + (game.width / 2.19f), player.y + game.height / 8f), 0.9f); ;
->>>>>>> 2a306d339952a0f699307eecf7ed964a49eac488
 
         if (player.x > 900 && player.x < (currentLevelSize.x - 900))
         {
