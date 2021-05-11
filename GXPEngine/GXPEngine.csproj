@@ -67,6 +67,7 @@
     <Compile Include="GXPEngine\GameObject.cs" />
     <Compile Include="Level Props\Box.cs" />
     <Compile Include="Level Props\Door.cs" />
+    <Compile Include="Level Props\Lever.cs" />
     <Compile Include="Level Props\Torch.cs" />
     <Compile Include="Levels\HorizontalLevel.cs" />
     <Compile Include="Levels\HubLevel.cs" />

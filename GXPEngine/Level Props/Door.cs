@@ -5,7 +5,7 @@ using GXPEngine;
 using System.Text;
 using System.Threading.Tasks;
 
-class Door : Entity
+public class Door : Entity
 {
     int levelDestination;
     public bool isOpened;
@@ -53,7 +53,6 @@ class Door : Entity
     {
        if((MyGame.Instance.levelManager.currentLevel.player.position - position).Length() < 300)
        {
-            Console.WriteLine("hoi");
             if(Input.GetKeyUp(Key.ENTER) && isOpened == true)
             {
                 MyGame.Instance.levelManager.SwitchLevel(levelDestination);

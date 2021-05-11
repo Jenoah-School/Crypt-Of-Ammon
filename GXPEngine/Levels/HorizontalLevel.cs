@@ -56,7 +56,7 @@ public class HorizontalLevel : Level
         Trigger pressurePlate1 = new Trigger("Assets/Sprites/Pressure_Plate_01.png", new Vec2(currentLevelSize.x / 2 - 196, centerBottomPiece.y - centerBottomPiece.height / 2f), 256);
         Trigger pressurePlate2 = new Trigger("Assets/Sprites/Pressure_Plate_01.png", new Vec2(currentLevelSize.x / 2 + 236, centerBottomPiece.y - centerBottomPiece.height / 2f), 256);
         Trigger pressurePlate3 = new Trigger("Assets/Sprites/Pressure_Plate_01.png", new Vec2(currentLevelSize.x / 2 + 664, centerBottomPiece.y - centerBottomPiece.height / 2f), 256);
-        Entity lever = new Entity("Assets/Sprites/Handle_01.png", new Vec2(currentLevelSize.x - 484, currentLevelSize.y / 2 + 424), 14, -1, false, false, 1, 0);
+        Lever lever = new Lever("Assets/Sprites/Handle_01.png", new Vec2(currentLevelSize.x - 484, currentLevelSize.y / 2 + 512), 14);
 
         Torch torch1 = new Torch(new Vec2(148, 1750), 1920, 1580);
         Torch torch2 = new Torch(new Vec2(172, 718), 1920, 1580);
@@ -98,6 +98,8 @@ public class HorizontalLevel : Level
         pressurePlate1.SetUntriggerEvent(new Action(() => DeactivatePressurePlate(pressurePlate1)));
         pressurePlate2.SetUntriggerEvent(new Action(() => DeactivatePressurePlate(pressurePlate2)));
         pressurePlate3.SetUntriggerEvent(new Action(() => DeactivatePressurePlate(pressurePlate3)));
+
+        lever.SetTriggerEvent(new Action(() => ((HubLevel)MyGame.Instance.levelManager.levels[0]).door2.isOpening = true));
 
         centerSlope.rotation = 330;
         leftPieceSlope.rotation = 345;

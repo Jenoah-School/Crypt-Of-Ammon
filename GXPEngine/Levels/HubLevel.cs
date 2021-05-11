@@ -9,7 +9,8 @@ public class HubLevel : Level
 {
     Background background;
     Door door1;
-    Door door2;
+    Lever staff;
+    public Door door2 { get; private set; }
 
     private int pressurePlatesDown = 0;
 
@@ -18,6 +19,7 @@ public class HubLevel : Level
         background = new Background(new string[] { "Assets/Sprites/Backgrounds/HubLevel/Hub_Layer_04.png", "Assets/Sprites/Backgrounds/HubLevel/Hub_Layer_03.png", "Assets/Sprites/Backgrounds/HubLevel/Hub_Layer_02.png", "Assets/Sprites/Backgrounds/HubLevel/Hub_Layer_01.png" });
         currentLevelSize = new Vec2(3840, 2160);
         player = new Player(new Vec2(2000, 1900), 128);
+        player.hasStaff = false;
 
         Entity floor = new Entity("Assets/Sprites/empty.png", new Vec2(1920, 2080), (int)currentLevelSize.x, 64, false, true, float.PositiveInfinity, 0);
         Entity leftWall = new Entity("Assets/Sprites/empty.png", new Vec2(60, currentLevelSize.y / 2), 64, (int)currentLevelSize.y, false, true, float.PositiveInfinity, 0);
@@ -42,6 +44,8 @@ public class HubLevel : Level
         Trigger pressurePlate = new Trigger("Assets/Sprites/Pressure_Plate_01.png", new Vec2(2450,2045), 256);
 
         Torch torch1 = new Torch(new Vec2(500, 1750), 1920, 1580);
+        staff = new Lever("Assets/Sprites/Player/handStaff.png", new Vec2(1042, currentLevelSize.y - 256f), 36);
+        staff.rotation = 0;
 
         door1 = new Door(new Vec2(3150, 1850), 472, 442, 1, true);
         door2 = new Door(new Vec2(3300, 880), 472, 442, 1, true);
@@ -74,6 +78,7 @@ public class HubLevel : Level
         AddChild(door2);
         AddChild(pushBox);
         AddChild(pressurePlate);
+        AddChild(staff);
         AddChild(player);
 
         
@@ -133,6 +138,8 @@ public class HubLevel : Level
 
         pressurePlate.SetTriggerEvent(new Action(() => ActivatePressurePlate(pressurePlate)));
         pressurePlate.SetUntriggerEvent(new Action(() => DeactivatePressurePlate(pressurePlate)));
+
+        staff.SetTriggerEvent(new Action(() => ActivateStaff()));
     }
 
     void Update()
@@ -144,6 +151,12 @@ public class HubLevel : Level
     void MoveBackgrounds()
     {
         background.MoveLayersWithDistance(new float[] { 0.4f, 0.8f, 0.2f, 0 }, player.rigidbody.velocity);
+    }
+
+    void ActivateStaff()
+    {
+        player.hasStaff = true;
+        staff.visible = false;
     }
 
     void ActivatePressurePlate(Trigger _pressurePlate)
