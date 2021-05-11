@@ -56,6 +56,7 @@ public class HorizontalLevel : Level
         Trigger pressurePlate1 = new Trigger("Assets/Sprites/Pressure_Plate_01.png", new Vec2(currentLevelSize.x / 2 - 196, centerBottomPiece.y - centerBottomPiece.height / 2f), 256);
         Trigger pressurePlate2 = new Trigger("Assets/Sprites/Pressure_Plate_01.png", new Vec2(currentLevelSize.x / 2 + 236, centerBottomPiece.y - centerBottomPiece.height / 2f), 256);
         Trigger pressurePlate3 = new Trigger("Assets/Sprites/Pressure_Plate_01.png", new Vec2(currentLevelSize.x / 2 + 664, centerBottomPiece.y - centerBottomPiece.height / 2f), 256);
+        TriggerCollider deathTrigger = new TriggerCollider("Assets/Sprites/square.png", new Vec2(currentLevelSize.x - 1224, currentLevelSize.y - 192), 2256, 256);
         Lever lever = new Lever("Assets/Sprites/Handle_01.png", new Vec2(currentLevelSize.x - 484, currentLevelSize.y / 2 + 512), 14);
 
         Torch torch1 = new Torch(new Vec2(148, 1750), 1920, 1580);
@@ -83,6 +84,8 @@ public class HorizontalLevel : Level
         pressurePlate3.ignoreColliders.Add(pushBox2.collider);
         pressurePlate3.ignoreColliders.Add(pushBox3.collider);
         pressurePlate3.ignoreColliders.Add(player.collider);
+
+        deathTrigger.ignoreColliders.Add(deathTrigger.collider);
 
         pressureTriggers.Add(pressurePlate1);
         pressureTriggers.Add(pressurePlate2);
@@ -156,6 +159,7 @@ public class HorizontalLevel : Level
         rightPiece.visible = false;
         rightWall.visible = false;
         roof.visible = false;
+        deathTrigger.visible = false;
 
         leftWall.ignoreColliders.Add(floor.collider);
         leftWall.ignoreColliders.Add(leftPieceCeiling.collider);
@@ -234,6 +238,8 @@ public class HorizontalLevel : Level
         AddChild(pushBox2);
         AddChild(pushBox3);
 
+        AddChild(deathTrigger);
+
         AddChild(cam);
 
         cam.SetXY(currentLevelSize.x / 1.333f, currentLevelSize.y / 2f);
@@ -241,6 +247,7 @@ public class HorizontalLevel : Level
         cam.scale = 2f;
         lever.AddUIText(this);
         hubDoor.AddUIText(this);
+        deathTrigger.SetTriggerEvent(new Action(() => MyGame.Instance.levelManager.RestartLevel()));
 
         hubDoor.isOpened = true;
 

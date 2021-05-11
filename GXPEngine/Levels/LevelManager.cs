@@ -39,9 +39,10 @@ namespace GXPEngine
 
             currentLevel.Unload();
             levels[levelIndex] = newLevel;
-            currentLevel.Destroy();
+            RemoveChild(currentLevel);
             currentLevel = levels[levelIndex];
-            AddChild(currentLevel);
+            currentLevel.Load();
+            myGame.AddChild(currentLevel);
         }
 
         public void SwitchLevel(int _levelId)
