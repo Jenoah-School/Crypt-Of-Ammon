@@ -41,7 +41,6 @@ class LoadScreenGameLogo : UI
             }
         }
 
-
         if (logo.alpha > 1)
         {
             logo.alpha = 1;
