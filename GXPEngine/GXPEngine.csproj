@@ -131,6 +131,7 @@
     <Compile Include="Physics\PhysicsMaterials\Metal.cs" />
     <Compile Include="Physics\Trigger.cs" />
     <Compile Include="UI%27s\Button.cs" />
+    <Compile Include="UI%27s\ComicUI.cs" />
     <Compile Include="UI%27s\LoadScreenGameLogo.cs" />
     <Compile Include="UI%27s\LoadScreenTeamLogo.cs" />
     <Compile Include="UI%27s\MainMenu.cs" />

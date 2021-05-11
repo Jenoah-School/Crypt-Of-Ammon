@@ -7,7 +7,7 @@ using GXPEngine;
 
 class Button : Sprite
 {
-    public Button() : base("Assets/Images/buttonPlaceholder.png")
+    public Button() : base("Assets/Images/ButtonTransparent.png")
     {
 
     }

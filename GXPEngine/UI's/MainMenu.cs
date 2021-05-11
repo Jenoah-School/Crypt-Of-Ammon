@@ -42,11 +42,11 @@ class MainMenu : UI
         base.Update();
         graphics.Clear(Color.Black);
 
-        //if (canPlaySound) sound.Play(false, 0, 0.5f,0); canPlaySound = false;
+        if (canPlaySound) sound.Play(false, 0, 0.5f,0); canPlaySound = false;
 
         if (startButton.IsClicked())
         {
-            Console.WriteLine("CLICK");  
+            Console.WriteLine("CLICK");
             MyGame.Instance.UserInterfaceManager.RemoveInterface(2);
             MyGame.Instance.UserInterfaceManager.AddInterface(3);
             MyGame.Instance.levelManager.currentLevel.canMove = true;

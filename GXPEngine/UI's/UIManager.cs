@@ -17,7 +17,7 @@ public class UIManager : GameObject
         UserInterfaces.Add(new ComicUI());
         UserInterfaces.Add(new PlayingUI());
 
-        AddInterface(2);
+        AddInterface(3);
     }
 
     public void AddInterface(int number)
