@@ -6,13 +6,14 @@ public class Player : Entity
     public Vec2 levelOffset = new Vec2();
 
     private float speed = 5f;
-    private float thrustSpeed = 2256;
-    private float reachDistance = 300f;
+    private float thrustSpeed = 2256f;
+    private float reachDistance = 400f;
+    private float lastThrustTime = 0f;
+    private float thrustDelay = 750f;
 
     private IK leftArm, rightArm;
     private Entity pole;
     private GameObject leftHandTarget, rightHandTarget;
-    private Sprite mouseTemp;
 
     private Sound thurstSound = null;
     private Vec2 mousePlayerPosition;
@@ -27,8 +28,6 @@ public class Player : Entity
         leftArm = new IK("Assets/Sprites/Player/leftHand.png", "Assets/Sprites/Player/leftArm.png", new Vec2(-128, -128), 0, leftHandTarget, 1, -1);
         rightArm = new IK("Assets/Sprites/Player/rightHand.png", "Assets/Sprites/Player/rightArm.png", new Vec2(128, -128), 0, rightHandTarget, 1, -1);
 
-        mouseTemp = new Sprite("Assets/Sprites/square.png", false, false);
-
         thurstSound = new Sound("Assets/Audio/SoundFX/thrust.wav");
 
         AddChild(leftHandTarget);
@@ -37,6 +36,8 @@ public class Player : Entity
         AddChild(leftArm);
         AddChild(rightArm);
         AddChild(pole);
+
+        lastThrustTime = Time.time;
     }
 
     public void Update()
@@ -76,6 +77,10 @@ public class Player : Entity
                 Thrust();
             }
         }
+        else
+        {
+            rigidbody.AddForce(new Vec2(speed / 4f, 0) * GameBehaviour.GetHorizontalAxis());
+        }
     }
 
     private void PositionArms()
@@ -83,7 +88,7 @@ public class Player : Entity
         Vec2 poleTargetPos = new Vec2(1f, 0f);
 
         float poleTargetRotation = Mathf.Atan2(mousePlayerPosition.y, mousePlayerPosition.x) * Vec2.Rad2Deg;
-        float distanceFromMouse = Mathf.Clamp((position - new Vec2(mousePlayerPosition.x, mousePlayerPosition.y)).Length() * 12f, 0, reachDistance);
+        float distanceFromMouse = Mathf.Clamp(new Vec2(mousePlayerPosition.x, mousePlayerPosition.y).Length() * 1f, 0, reachDistance);
         poleTargetPos.RotateDegrees(poleTargetRotation);
         poleTargetPos *= distanceFromMouse;
 
@@ -105,15 +110,18 @@ public class Player : Entity
 
     private void Thrust()
     {
-
-        position += new Vec2(0, 5f);
-        skipResolve = true;
-        Vec2 thrustForce = new Vec2(0, -thrustSpeed);
-        thrustForce.RotateDegrees(pole.rotation);
-        rigidbody.AddForce(thrustForce);
-        if (thurstSound != null)
+        if (lastThrustTime + thrustDelay < Time.time)
         {
-            thurstSound.Play();
+            lastThrustTime = Time.time;
+            position += new Vec2(0, 5f);
+            skipResolve = true;
+            Vec2 thrustForce = new Vec2(0, -thrustSpeed);
+            thrustForce.RotateDegrees(pole.rotation);
+            rigidbody.AddForce(thrustForce);
+            if (thurstSound != null)
+            {
+                thurstSound.Play();
+            }
         }
     }
 }
