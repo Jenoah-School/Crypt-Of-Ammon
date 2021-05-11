@@ -46,7 +46,7 @@ public class Player : Entity
 
     public void Update()
     {
-        if (!MyGame.Instance.UserInterfaceManager.HasChild(MyGame.Instance.UserInterfaceManager.UserInterfaces[4]))
+        if (MyGame.Instance.HasChild(MyGame.Instance.UserInterfaceManager) && !MyGame.Instance.UserInterfaceManager.HasChild(MyGame.Instance.UserInterfaceManager.UserInterfaces[4]))
         {
             return;
         }
