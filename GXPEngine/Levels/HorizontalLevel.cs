@@ -24,6 +24,7 @@ public class HorizontalLevel : Level
         Entity leftWall = new Entity("Assets/Sprites/square.png", new Vec2(48, currentLevelSize.y / 2f), 96, (int)currentLevelSize.y, false, true, float.PositiveInfinity, 0f);
         Entity leftFloorBlockPiece = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 96, floor.y - floor.height / 2f - 32), 192, 64, false, true, float.PositiveInfinity, 0f);
         Entity leftPiece = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 580, currentLevelSize.y / 2 - 36), 1160, 64, false, true, float.PositiveInfinity, 0f);
+        Entity leftPieceCeiling = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 340, 360), 680, 64, false, true, float.PositiveInfinity, 0f);
         Entity leftPieceTop = new Entity("Assets/Sprites/square.png", new Vec2(816, 364), 98, 600, false, true, float.PositiveInfinity, 0f);
         Entity leftPieceSlope = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 560, currentLevelSize.y / 2 + 148), 1200, 64, false, true, float.PositiveInfinity, 0f);
         Entity leftBlockPiece = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 128, currentLevelSize.y / 2 - 96), 256, 64, false, true, float.PositiveInfinity, 0f);
@@ -61,6 +62,10 @@ public class HorizontalLevel : Level
         Torch torch4 = new Torch(new Vec2(3018, 592), 1920, 1580);
         Torch torch5 = new Torch(new Vec2(3298, 272), 1920, 1580);
         Torch torch6 = new Torch(new Vec2(3146, 1364), 1920, 1580);
+        Torch torch7 = new Torch(new Vec2(4652, 228), 1920, 1580);
+        Torch torch8 = new Torch(new Vec2(5184, 1312), 1920, 1580);
+        Torch torch9 = new Torch(new Vec2(currentLevelSize.x - 822, 1364), 1920, 1580);
+        Torch torch10 = new Torch(new Vec2(currentLevelSize.x - 152, 1336), 1920, 1580);
 
         pressurePlate1.ignoreColliders.Add(pushBox1.collider);
         pressurePlate1.ignoreColliders.Add(pushBox2.collider);
@@ -100,6 +105,7 @@ public class HorizontalLevel : Level
         sceneObjects.Add(leftFloorBlockPiece);
         sceneObjects.Add(leftPiece);
         sceneObjects.Add(leftPieceTop);
+        sceneObjects.Add(leftPieceCeiling);
         sceneObjects.Add(leftPieceSlope);
         sceneObjects.Add(leftBlockPiece);
         sceneObjects.Add(leftCenterPiece);
@@ -120,7 +126,6 @@ public class HorizontalLevel : Level
         sceneObjects.Add(gate);
         sceneObjects.Add(bridge);
         sceneObjects.Add(roof);
-        //sceneObjects.Add(hubDoor);
 
         sceneObjects.Add(player);
 
@@ -128,6 +133,7 @@ public class HorizontalLevel : Level
         leftWall.visible = false;
         leftFloorBlockPiece.visible = false;
         leftPiece.visible = false;
+        leftPieceCeiling.visible = false;
         leftPieceSlope.visible = false;
         leftBlockPiece.visible = false;
         leftPieceTop.visible = false;
@@ -146,6 +152,7 @@ public class HorizontalLevel : Level
         roof.visible = false;
 
         leftWall.ignoreColliders.Add(floor.collider);
+        leftWall.ignoreColliders.Add(leftPieceCeiling.collider);
         leftFloorBlockPiece.ignoreColliders.Add(floor.collider);
         leftWall.ignoreColliders.Add(leftFloorBlockPiece.collider);
         leftPiece.ignoreColliders.Add(leftWall.collider);
@@ -178,6 +185,7 @@ public class HorizontalLevel : Level
         AddChild(leftFloorBlockPiece);
         AddChild(leftPiece);
         AddChild(leftPieceTop);
+        AddChild(leftPieceCeiling);
         AddChild(leftPieceSlope);
         AddChild(leftBlockPiece);
         AddChild(leftCenterPiece);
@@ -201,6 +209,10 @@ public class HorizontalLevel : Level
         AddChild(torch4);
         AddChild(torch5);
         AddChild(torch6);
+        AddChild(torch7);
+        AddChild(torch8);
+        AddChild(torch9);
+        AddChild(torch10);
 
         AddChild(pressurePlate1);
         AddChild(pressurePlate2);
@@ -217,7 +229,7 @@ public class HorizontalLevel : Level
         AddChild(cam);
 
         cam.SetXY(currentLevelSize.x / 1.333f, currentLevelSize.y / 2f);
-        cam.scale = 2f;
+        cam.scale = 3f;
 
         hubDoor.isOpened = true;
 
@@ -265,7 +277,7 @@ public class HorizontalLevel : Level
         {
             gate.visible = true;
             if (!MyGame.collisionObjects.Contains(gate.collider))
-                MyGame.collisionObjects.Add(gate.collider);
+                MyGame.collisionObjects.Insert(4, gate.collider);
             if (player.ignoreColliders.Contains(gate.collider))
                 player.ignoreColliders.Remove(gate.collider);
         }
@@ -274,7 +286,7 @@ public class HorizontalLevel : Level
         {
             bridge.visible = true;
             if (!MyGame.collisionObjects.Contains(bridge.collider))
-                MyGame.collisionObjects.Add(bridge.collider);
+                MyGame.collisionObjects.Insert(4, bridge.collider);
             if (player.ignoreColliders.Contains(bridge.collider))
                 player.ignoreColliders.Remove(bridge.collider);
         }

@@ -1,4 +1,5 @@
-﻿using GXPEngine;
+﻿
+using GXPEngine;
 using System;
 
 public class Player : Entity
@@ -7,9 +8,11 @@ public class Player : Entity
 
     private float speed = 5f;
     private float thrustSpeed = 2256f;
-    private float reachDistance = 400f;
+    private float reachDistance = 260f;
     private float lastThrustTime = 0f;
     private float thrustDelay = 750f;
+
+    public bool hasStaff = true;
 
     private IK leftArm, rightArm;
     private Entity pole;
@@ -20,13 +23,14 @@ public class Player : Entity
 
     public Player(Vec2 _position, int _width, int _height = -1) : base("Assets/Sprites/Player/torso.png", _position, _width, _height, true, true, 1, 0)
     {
-        pole = new Entity("Assets/Sprites/Player/handStaff.png", new Vec2(0, 0), 96, 576, false, false, 1, 0); ;
+        pole = new Entity("Assets/Sprites/Player/handStaff.png", new Vec2(0, 0), 96, 576, false, false, 1, 0);
+        pole.SetOrigin(pole.width / 2, pole.height / 2f);
 
-        leftHandTarget = new Sprite("Assets/Sprites/transparency.png", true, false);
-        rightHandTarget = new Sprite("Assets/Sprites/transparency.png", true, false);
+        leftHandTarget = new Sprite("Assets/Sprites/square.png", true, false);
+        rightHandTarget = new Sprite("Assets/Sprites/playerTemp.png", true, false);
 
         leftArm = new IK("Assets/Sprites/Player/leftHand.png", "Assets/Sprites/Player/leftArm.png", new Vec2(-128, -128), 0, leftHandTarget, 1, -1);
-        rightArm = new IK("Assets/Sprites/Player/rightHand.png", "Assets/Sprites/Player/rightArm.png", new Vec2(128, -128), 0, rightHandTarget, 1, -1);
+        rightArm = new IK("Assets/Sprites/Player/leftHand.png", "Assets/Sprites/Player/leftArm.png", new Vec2(128, -128), 0, rightHandTarget, 1, -1);
 
         thurstSound = new Sound("Assets/Audio/SoundFX/thrust.wav");
 
@@ -37,11 +41,13 @@ public class Player : Entity
         AddChild(rightArm);
         AddChild(pole);
 
-        lastThrustTime = Time.time;
+        lastThrustTime = Time.time - thrustDelay;
     }
 
     public void Update()
     {
+        pole.visible = hasStaff;
+
         if (IsGrounded())
             rigidbody.velocity.x *= 0.96f;
         HandleInput();
@@ -95,8 +101,8 @@ public class Player : Entity
         pole.SetXY(poleTargetPos.x, poleTargetPos.y);
         pole.rotation = poleTargetRotation + 90;
 
-        Vec2 leftHandTargetPos = poleTargetPos - new Vec2(pole.TransformDirection(-1, 1));
-        Vec2 rightHandTargetPos = poleTargetPos - new Vec2(pole.TransformDirection(1, 1));
+        Vec2 leftHandTargetPos = new Vec2(pole.x, pole.y) - new Vec2(pole.TransformDirection(-128, 1));
+        Vec2 rightHandTargetPos = new Vec2(pole.x, pole.y) - new Vec2(pole.TransformDirection(128, 1));
 
         leftHandTarget.SetXY(leftHandTargetPos.x, leftHandTargetPos.y);
         rightHandTarget.SetXY(rightHandTargetPos.x, rightHandTargetPos.y);

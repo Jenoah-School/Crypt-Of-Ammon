@@ -101,5 +101,6 @@ class IKSegment : Sprite
     private void CalculateTargetPosition()
     {
         targetPos = new Vec2(Mathf.Cos(angle), Mathf.Sin(angle)) * width - startPos;
+        Gizmos.DrawPlus(targetPos.x, targetPos.y, 15);
     }
 }
