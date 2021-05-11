@@ -43,9 +43,15 @@ public class HubLevel : Level
 
         Trigger pressurePlate = new Trigger("Assets/Sprites/Pressure_Plate_01.png", new Vec2(2450,2045), 256);
 
-        Torch torch1 = new Torch(new Vec2(500, 1750), 1920, 1580);
-        staff = new Lever("Assets/Sprites/Player/handStaff.png", new Vec2(1042, currentLevelSize.y - 256f), 36);
+		staff = new Lever("Assets/Sprites/Player/handStaff.png", new Vec2(1042, currentLevelSize.y - 256f), 36);
         staff.rotation = 0;
+
+        Torch torch1 = new Torch(new Vec2(500, 1750), 1920, 1580);
+        Torch torch2 = new Torch(new Vec2(1265, 835), 1920, 1580);
+        Torch torch3 = new Torch(new Vec2(2630, 1800), 1920, 1580);
+        Torch torch4 = new Torch(new Vec2(3620, 1800), 1920, 1580);
+        Torch torch5 = new Torch(new Vec2(2720, 840), 1920, 1580);
+        Torch torch6 = new Torch(new Vec2(2060, 1150), 1920, 1580);
 
         door1 = new Door(new Vec2(3150, 1850), 472, 442, 1, true);
         door2 = new Door(new Vec2(3300, 880), 472, 442, 1, true);
@@ -74,6 +80,11 @@ public class HubLevel : Level
         AddChild(leftPlatform3);
         AddChild(leftRandomBox);
         AddChild(torch1);
+        AddChild(torch2);
+        AddChild(torch3);
+        AddChild(torch4);
+        AddChild(torch5);
+        AddChild(torch6);
         AddChild(door1);
         AddChild(door2);
         AddChild(pushBox);

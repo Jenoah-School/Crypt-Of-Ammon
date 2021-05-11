@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 
 public class Door : Entity
 {
+    SoundChannel channel;
+
     int levelDestination;
     public bool isOpened;
     public Sound doorOpenSound;
+    public Sound doorCloseSound;
     public float previousTime = 0;
 
-    bool canPlaySound;
+    bool canPlayOpenSound;
+    bool canPlayCloseSound;
 
     public bool isOpening;
     public bool isClosing;
@@ -23,13 +27,14 @@ public class Door : Entity
         SetCycle(0, 10, 255, false);
         this.isOpened = isOpened;
         this.levelDestination = levelDestination;
-        doorOpenSound = new Sound("Assets/Sounds/fa_sfx_door.mp3");
+        doorOpenSound = new Sound("Assets/Sounds/fa_doorOpen.mp3");
+        doorCloseSound = new Sound("Assets/Sounds/fa_doorClose_short.mp3");
     }
 
     void Update()
     {
         CheckIfPlayerIsNear();
-        if(isClosing)
+        if(isClosing && currentFrame > 0)
         {
             CloseDoorSlowly();
         }
@@ -39,13 +44,16 @@ public class Door : Entity
         }
         if(currentFrame == 4)
         {
-            isOpened = true;
-            if (canPlaySound) doorOpenSound.Play(false, 0, 0.5f, 0); canPlaySound = false;
+            isOpened = true;            
         }
         else
         {
-            isOpened = false;
-            canPlaySound = true;
+            isOpened = false;          
+        }
+        if(currentFrame == 0)
+        {
+            canPlayOpenSound = true;
+            canPlayCloseSound = true;
         }
     }
 
@@ -61,7 +69,8 @@ public class Door : Entity
     }
 
     public void OpenDoorSlowly()
-    {
+    {     
+        if (canPlayOpenSound) channel = doorOpenSound.Play(); canPlayOpenSound = false;
         if (Time.time > previousTime + 500)
         {
             currentFrame++;
@@ -71,6 +80,7 @@ public class Door : Entity
 
     public void CloseDoorSlowly()
     {
+        if (canPlayCloseSound) channel = doorCloseSound.Play(); canPlayCloseSound = false;
         if (Time.time > previousTime + 100)
         {
             currentFrame--;
