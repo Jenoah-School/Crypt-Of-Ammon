@@ -26,7 +26,7 @@ public class MyGame : Game
 		targetFps = 60;
 
 		AddChild(levelManager);
-		//AddChild(UserInterfaceManager);		
+		//AddChild(UserInterfaceManager);
 	}
 
 	void Update()

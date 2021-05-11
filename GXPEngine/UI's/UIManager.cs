@@ -16,7 +16,7 @@ public class UIManager : GameObject
         UserInterfaces.Add(new MainMenu());
         UserInterfaces.Add(new PlayingUI());
 
-        AddInterface(2);
+        AddInterface(0);
     }
 
     public void AddInterface(int number)

@@ -10,13 +10,16 @@ public class HorizontalLevel : Level
 {
     private Background background;
     private Door hubDoor;
+    private Entity bridge, gate;
+
+    private int pressurePlatesDown = 0;
 
     public HorizontalLevel()
     {
         background = new Background(new string[] { "Assets/Sprites/Backgrounds/HorizontalLevel/Lvl01_Layer_04.png", "Assets/Sprites/Backgrounds/HorizontalLevel/Lvl01_Layer_03.png", "Assets/Sprites/Backgrounds/HorizontalLevel/Lvl01_Layer_02.png", "Assets/Sprites/Backgrounds/HorizontalLevel/Lvl01_Layer_01.png" });
         currentLevelSize = new Vec2(7680, 2160);
 
-        player = new Player(new Vec2(game.width / 2, game.height / 2), 128);
+        player = new Player(new Vec2(512, currentLevelSize.y - 256), 128);
         Entity floor = new Entity("Assets/Sprites/square.png", new Vec2(currentLevelSize.x / 2, currentLevelSize.y - 52), (int)currentLevelSize.x, 104, false, true, float.PositiveInfinity, 0f);
         Entity leftWall = new Entity("Assets/Sprites/square.png", new Vec2(48, currentLevelSize.y / 2f), 96, (int)currentLevelSize.y, false, true, float.PositiveInfinity, 0f);
         Entity leftFloorBlockPiece = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 96, floor.y - floor.height / 2f - 32), 192, 64, false, true, float.PositiveInfinity, 0f);
@@ -37,7 +40,8 @@ public class HorizontalLevel : Level
         Entity rightWall = new Entity("Assets/Sprites/square.png", new Vec2(currentLevelSize.x - 48, currentLevelSize.y / 2f), 96, (int)currentLevelSize.y, false, true, float.PositiveInfinity, 0f);
         Entity roof = new Entity("Assets/Sprites/square.png", new Vec2(currentLevelSize.x / 2, 32), (int)currentLevelSize.x, 64, false, true, float.PositiveInfinity, 0f);
         
-        Entity bridge = new Entity("Assets/Sprites/Bridge_01.png", new Vec2(currentLevelSize.x - currentLevelSize.x / 4f + 328, currentLevelSize.y / 2 + 579), 1484, -1, false, true, float.PositiveInfinity, 0f);
+        bridge = new Entity("Assets/Sprites/Bridge_01.png", new Vec2(currentLevelSize.x - currentLevelSize.x / 4f + 328, currentLevelSize.y / 2 + 579), 1484, -1, false, true, float.PositiveInfinity, 0f);
+        gate = new Entity("Assets/Sprites/Gate_01.png", new Vec2(816, currentLevelSize.y / 2 - 248), 98, -1, false, true, float.PositiveInfinity, 0f);
 
         Entity pushBox1 = new Entity("Assets/Sprites/Box_01.png", new Vec2(512, currentLevelSize.y / 2 - 256), 164, -1, true, true, 1, 0);
         Entity pushBox2 = new Entity("Assets/Sprites/Box_01.png", new Vec2(1536, currentLevelSize.y - 256), 164, -1, true, true, 1, 0);
@@ -73,12 +77,12 @@ public class HorizontalLevel : Level
         pressureSenders.Add(pushBox3);
         pressureSenders.Add(player);
 
-        pressurePlate1.SetTriggerEvent(new Action(() => pressurePlate1.SetColor(0.3f, 0.3f, 0.3f)));
-        pressurePlate2.SetTriggerEvent(new Action(() => pressurePlate2.SetColor(0.3f, 0.3f, 0.3f)));
-        pressurePlate3.SetTriggerEvent(new Action(() => pressurePlate3.SetColor(0.3f, 0.3f, 0.3f)));
-        pressurePlate1.SetUntriggerEvent(new Action(() => pressurePlate1.SetColor(0.9f, 0.9f, 0.9f)));
-        pressurePlate2.SetUntriggerEvent(new Action(() => pressurePlate2.SetColor(0.9f, 0.9f, 0.9f)));
-        pressurePlate3.SetUntriggerEvent(new Action(() => pressurePlate3.SetColor(0.9f, 0.9f, 0.9f)));
+        pressurePlate1.SetTriggerEvent(new Action(() => ActivatePressurePlate(pressurePlate1)));
+        pressurePlate2.SetTriggerEvent(new Action(() => ActivatePressurePlate(pressurePlate2)));
+        pressurePlate3.SetTriggerEvent(new Action(() => ActivatePressurePlate(pressurePlate3)));
+        pressurePlate1.SetUntriggerEvent(new Action(() => DeactivatePressurePlate(pressurePlate1)));
+        pressurePlate2.SetUntriggerEvent(new Action(() => DeactivatePressurePlate(pressurePlate2)));
+        pressurePlate3.SetUntriggerEvent(new Action(() => DeactivatePressurePlate(pressurePlate3)));
 
         centerSlope.rotation = 330;
 
@@ -107,6 +111,7 @@ public class HorizontalLevel : Level
         sceneObjects.Add(pushBox2);
         sceneObjects.Add(pushBox3);
         sceneObjects.Add(bridge);
+        sceneObjects.Add(gate);
         //sceneObjects.Add(hubDoor);
 
         sceneObjects.Add(player);
@@ -137,6 +142,7 @@ public class HorizontalLevel : Level
         leftPiece.ignoreColliders.Add(leftWall.collider);
         leftPieceSlope.ignoreColliders.Add(leftWall.collider);
         leftPiece.ignoreColliders.Add(leftPieceSlope.collider);
+        leftPiece.ignoreColliders.Add(gate.collider);
         leftBlockPiece.ignoreColliders.Add(leftWall.collider);
         leftBlockPiece.ignoreColliders.Add(leftPiece.collider);
         centerBottomPiece.ignoreColliders.Add(floor.collider);
@@ -179,6 +185,7 @@ public class HorizontalLevel : Level
         AddChild(roof);
         AddChild(bridge);
         AddChild(lever);
+        AddChild(gate);
 
         AddChild(pressurePlate1);
         AddChild(pressurePlate2);
@@ -193,6 +200,8 @@ public class HorizontalLevel : Level
 
         cam.SetXY(currentLevelSize.x / 1.333f, currentLevelSize.y / 2f);
         cam.scale = 3f;
+
+        HandlePressurePlates();
     }
 
     void Update()
@@ -217,6 +226,57 @@ public class HorizontalLevel : Level
         }
     }
 
+    void ActivatePressurePlate(Trigger _pressurePlate)
+    {
+        _pressurePlate.SetColor(0.3f, 0.3f, 0.3f);
+        pressurePlatesDown++;
+        HandlePressurePlates();
+    }
+
+    void DeactivatePressurePlate(Trigger _pressurePlate)
+    {
+        _pressurePlate.SetColor(0.9f, 0.9f, 0.9f);
+        pressurePlatesDown--;
+        HandlePressurePlates();
+    }
+
+    void HandlePressurePlates()
+    {
+        if(pressurePlatesDown >= 3)
+        {
+            bridge.visible = true;
+            if (!MyGame.collisionObjects.Contains(bridge.collider))
+            {
+                MyGame.collisionObjects.Add(bridge.collider);
+            }
+        }
+        else
+        {
+            bridge.visible = false;
+            if (MyGame.collisionObjects.Contains(bridge.collider))
+            {
+                MyGame.collisionObjects.Remove(bridge.collider);
+            }
+        }
+
+        if(pressurePlatesDown >= 1)
+        {
+            gate.visible = false;
+            if (sceneObjects.Contains(gate))
+            {
+                sceneObjects.Remove(gate);
+            }
+        }
+        else
+        {
+            gate.visible = true;
+            if (!sceneObjects.Contains(gate))
+            {
+                sceneObjects.Add(gate);
+            }
+        }
+    }
+
     public override void SetCameraPosition()
     {
         Vec2 lerp = Vec2.Lerp(new Vec2(cam.x, cam.y), new Vec2(player.x, player.y), 0.9f);
@@ -229,21 +289,21 @@ public class HorizontalLevel : Level
         {
             cam.SetXY(cam.x, lerp.y);
         }
-        if (cam.x < game.width * cam.scale / 2f)
+        if (cam.x < cam._renderTarget.width * cam.scale / 2f)
         {
-            cam.x = game.width * cam.scale / 2f;
+            cam.x = cam._renderTarget.width * cam.scale / 2f;
         }
-        else if (cam.x > currentLevelSize.x - game.width * cam.scale / 2f)
+        else if (cam.x > currentLevelSize.x - cam._renderTarget.width * cam.scale / 2f)
         {
-            cam.x = currentLevelSize.x - game.width * cam.scale / 2f;
+            cam.x = currentLevelSize.x - cam._renderTarget.width * cam.scale / 2f;
         }
-        if (cam.y < game.height * cam.scale / 2f)
+        if (cam.y < cam._renderTarget.height * cam.scale / 2f)
         {
-            cam.y = game.height * cam.scale / 2f;
+            cam.y = cam._renderTarget.height * cam.scale / 2f;
         }
-        else if (cam.y > currentLevelSize.y - game.height * cam.scale / 2f)
+        else if (cam.y > currentLevelSize.y - cam._renderTarget.height * cam.scale / 2f)
         {
-            cam.y = currentLevelSize.y - game.height * cam.scale / 2f;
+            cam.y = currentLevelSize.y - cam._renderTarget.height * cam.scale / 2f;
         }
     }
 }

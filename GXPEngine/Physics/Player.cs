@@ -7,7 +7,7 @@ public class Player : Entity
 
     private float speed = 5f;
     private float thrustSpeed = 1768f;
-    private float reachDistance = 350f;
+    private float reachDistance = 300f;
 
     private IK leftArm, rightArm;
     private Entity pole;
@@ -83,15 +83,15 @@ public class Player : Entity
         Vec2 poleTargetPos = new Vec2(1f, 0f);
 
         float poleTargetRotation = Mathf.Atan2(mousePlayerPosition.y, mousePlayerPosition.x) * Vec2.Rad2Deg;
-        float distanceFromMouse = Mathf.Clamp((position - new Vec2(Input.mouseX, Input.mouseY)).Length() * 12f, 0, reachDistance);
+        float distanceFromMouse = Mathf.Clamp((position - new Vec2(mousePlayerPosition.x, mousePlayerPosition.y)).Length() * 12f, 0, reachDistance);
         poleTargetPos.RotateDegrees(poleTargetRotation);
         poleTargetPos *= distanceFromMouse;
 
         pole.SetXY(poleTargetPos.x, poleTargetPos.y);
         pole.rotation = poleTargetRotation + 90;
 
-        Vec2 leftHandTargetPos = poleTargetPos - new Vec2(pole.TransformDirection(-256, 128));
-        Vec2 rightHandTargetPos = poleTargetPos - new Vec2(pole.TransformDirection(256, 128));
+        Vec2 leftHandTargetPos = poleTargetPos - new Vec2(pole.TransformDirection(-1, 1));
+        Vec2 rightHandTargetPos = poleTargetPos - new Vec2(pole.TransformDirection(1, 1));
 
         leftHandTarget.SetXY(leftHandTargetPos.x, leftHandTargetPos.y);
         rightHandTarget.SetXY(rightHandTargetPos.x, rightHandTargetPos.y);
