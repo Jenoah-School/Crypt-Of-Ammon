@@ -17,7 +17,6 @@ class PlayingUI : UI
     {
         base.Update();
         graphics.Clear(Color.Empty);
-        graphics.DrawString(timeSeconds.ToString() + " scene 1", new Font("Arial", 40), Brushes.White, 0, 0);
     }
 }
 
