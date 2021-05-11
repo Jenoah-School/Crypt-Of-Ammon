@@ -26,8 +26,8 @@ public class Player : Entity
         pole = new Entity("Assets/Sprites/Player/handStaff.png", new Vec2(0, 0), 96, 576, false, false, 1, 0);
         pole.SetOrigin(pole.width / 2, pole.height / 2f);
 
-        leftHandTarget = new Sprite("Assets/Sprites/square.png", true, false);
-        rightHandTarget = new Sprite("Assets/Sprites/playerTemp.png", true, false);
+        leftHandTarget = new Sprite("Assets/Sprites/transparency.png", true, false);
+        rightHandTarget = new Sprite("Assets/Sprites/transparency.png", true, false);
 
         leftArm = new IK("Assets/Sprites/Player/leftHand.png", "Assets/Sprites/Player/leftArm.png", new Vec2(-128, -128), 0, leftHandTarget, 1, -1);
         rightArm = new IK("Assets/Sprites/Player/leftHand.png", "Assets/Sprites/Player/leftArm.png", new Vec2(128, -128), 0, rightHandTarget, 1, -1);
@@ -46,6 +46,10 @@ public class Player : Entity
 
     public void Update()
     {
+        if (!MyGame.Instance.UserInterfaceManager.HasChild(MyGame.Instance.UserInterfaceManager.UserInterfaces[3]))
+        {
+            return;
+        }
         pole.visible = hasStaff;
 
         if (IsGrounded())
@@ -78,7 +82,7 @@ public class Player : Entity
         if (IsGrounded())
         {
             rigidbody.AddForce(new Vec2(speed, 0) * GameBehaviour.GetHorizontalAxis());
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && hasStaff)
             {
                 Thrust();
             }

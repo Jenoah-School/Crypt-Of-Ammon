@@ -11,12 +11,13 @@ namespace GXPEngine
     public class LevelManager : GameObject
     {
         public Level currentLevel { get; private set; }
-        private List<Level> levels = new List<Level>();
+        public List<Level> levels { get; private set; }
 
         MyGame myGame;
 
         public LevelManager()
         {
+            levels = new List<Level>();
             myGame = (MyGame)game;
 
             levels.Add(new HubLevel());
@@ -28,7 +29,7 @@ namespace GXPEngine
             levels.Add(new TestLevelArjen2());
             levels.Add(new TestLevelJenoah1());
 
-            SwitchLevel(1);
+            SwitchLevel(0);
         }
 
         public void SwitchLevel(int _levelId)
