@@ -25,7 +25,7 @@ class MainMenu : UI
     {
         MyGame.Instance.levelManager.currentLevel.canMove = true;
 
-        backgroundImage = new Sprite("Assets/Images/mainMenuTheme.jpg", false, false);
+        backgroundImage = new Sprite("Assets/Images/final-version-mm.jpg", false, false);
         backgroundImage.height = (int)(game.width * ((float)backgroundImage.height / (float)backgroundImage.width));
         backgroundImage.width = game.width;
         backgroundImage.height = game.height;
