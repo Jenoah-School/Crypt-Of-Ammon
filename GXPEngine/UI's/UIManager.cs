@@ -16,8 +16,10 @@ public class UIManager : GameObject
         UserInterfaces.Add(new MainMenu());
         UserInterfaces.Add(new ComicUI());
         UserInterfaces.Add(new PlayingUI());
+        UserInterfaces.Add(new DeathScreen());
+        UserInterfaces.Add(new EndScreen());
 
-        AddInterface(0);
+        AddInterface(4);
     }
 
     public void AddInterface(int number)
