@@ -32,6 +32,18 @@ namespace GXPEngine
             SwitchLevel(0);
         }
 
+        public void RestartLevel()
+        {
+            int levelIndex = levels.IndexOf(currentLevel);
+            Level newLevel = (Level)Activator.CreateInstance(currentLevel.GetType());
+
+            currentLevel.Unload();
+            levels[levelIndex] = newLevel;
+            currentLevel.Destroy();
+            currentLevel = levels[levelIndex];
+            AddChild(currentLevel);
+        }
+
         public void SwitchLevel(int _levelId)
         {
             if (_levelId < levels.Count)

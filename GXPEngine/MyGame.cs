@@ -32,7 +32,11 @@ public class MyGame : Game
 
 	void Update()
     {
-		SetChildIndex(UserInterfaceManager, 10000);
+        SetChildIndex(UserInterfaceManager, 10000);
+        if (Input.GetKeyUp(Key.R))
+        {
+			//levelManager.RestartLevel();
+        }
 	}
 
 	static void Main()

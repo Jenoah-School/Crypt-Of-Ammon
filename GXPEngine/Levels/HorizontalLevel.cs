@@ -238,7 +238,9 @@ public class HorizontalLevel : Level
 
         cam.SetXY(currentLevelSize.x / 1.333f, currentLevelSize.y / 2f);
         previousCameraPos = new Vec2(cam.x, cam.y);
-        cam.scale = 3f;
+        cam.scale = 2f;
+        lever.AddUIText(this);
+        hubDoor.AddUIText(this);
 
         hubDoor.isOpened = true;
 

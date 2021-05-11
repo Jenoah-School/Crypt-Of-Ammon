@@ -151,6 +151,9 @@ public class HubLevel : Level
         pressurePlate.SetUntriggerEvent(new Action(() => DeactivatePressurePlate(pressurePlate)));
 
         staff.SetTriggerEvent(new Action(() => ActivateStaff()));
+        staff.AddUIText(this);
+        door1.AddUIText(this);
+        door2.AddUIText(this);
     }
 
     void Update()
