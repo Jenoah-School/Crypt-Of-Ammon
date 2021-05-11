@@ -17,7 +17,7 @@ public class MyGame : Game
 		Instance = this;
 
 		GL.glfwSetWindowPos((Screen.PrimaryScreen.Bounds.Width - width) / 2, (10));
-		GL.glfwSetWindowTitle("Final Approach");
+		GL.glfwSetWindowTitle("Crypt of Ammon");
 		
 
 		RenderMain = false;
