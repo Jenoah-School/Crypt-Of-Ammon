@@ -8,34 +8,33 @@ using System.Drawing;
 
 class MainMenu : UI
 {
-    Sprite titleImage;
     Sprite backgroundImage;
 
     Sound sound;
 
     Button startButton;
+    Button endButton;
     bool canPlaySound = true;
 
     public MainMenu()
     {
         MyGame.Instance.levelManager.currentLevel.canMove = true;
 
-        backgroundImage = new Sprite("Assets/Images/mainMenu.jpg", false, false);
+        backgroundImage = new Sprite("Assets/Images/mainMenuTheme.jpg", false, false);
         backgroundImage.height = (int)(game.width * ((float)backgroundImage.height / (float)backgroundImage.width));
         backgroundImage.width = game.width;
 
-        titleImage = new Sprite("Assets/Images/logoSimple.png", false, false);
-        titleImage.SetOrigin(titleImage.width / 2, titleImage.height / 2);
-        titleImage.SetXY(width / 2, height / 5);
-
         startButton = new Button();
-        startButton.SetXY((width / 2) - startButton.width / 2, height / 1.5f);
+        startButton.SetXY((game.width / 5.9f) - startButton.width / 2, game.height / 2.35f);
+
+        endButton = new Button();
+        endButton.SetXY((game.width / 5.9f) - startButton.width / 2, game.height / 3.35f);
 
         sound = new Sound("Assets/Sounds/mainMenu.mp3");
 
         AddChild(backgroundImage);
         AddChild(startButton);
-        AddChild(titleImage);
+        AddChild(endButton);
     }
 
     void Update()
@@ -43,7 +42,7 @@ class MainMenu : UI
         base.Update();
         graphics.Clear(Color.Black);
 
-        if (canPlaySound) sound.Play(false, 0, 0.5f,0); canPlaySound = false;
+        //if (canPlaySound) sound.Play(false, 0, 0.5f,0); canPlaySound = false;
 
         if (startButton.IsClicked())
         {
@@ -51,6 +50,11 @@ class MainMenu : UI
             MyGame.Instance.UserInterfaceManager.RemoveInterface(2);
             MyGame.Instance.UserInterfaceManager.AddInterface(3);
             MyGame.Instance.levelManager.currentLevel.canMove = true;
+        }
+
+        if(endButton.IsClicked())
+        {
+            game.Destroy();
         }
 
         UpdateElements();
@@ -68,14 +72,13 @@ class MainMenu : UI
             backgroundImage.width = (int)(game.height * ((float)backgroundImage.width / (float)backgroundImage.height));
             backgroundImage.height = game.height;
         }
+        startButton.height = (int)(backgroundImage.width * ((float)startButton.height / (float)startButton.width) * 0.05f);
+        startButton.width = (int)(backgroundImage.width * 0.05f);
+        startButton.SetXY((game.width / 5.9f) - startButton.width / 2, game.height / 2.28f);
 
-        titleImage.height = (int)(game.width * ((float)titleImage.height / (float)titleImage.width) * 0.5f);
-        titleImage.width = (int)(game.width * 0.5f);
-        titleImage.SetXY(game.width / 2, game.height / 5);
-
-        startButton.height = (int)(backgroundImage.width * ((float)startButton.height / (float)startButton.width) * 0.125f);
-        startButton.width = (int)(backgroundImage.width * 0.125f);
-        startButton.SetXY((game.width / 2) - startButton.width / 2, game.height / 1.5f);
+        endButton.height = (int)(backgroundImage.width * ((float)startButton.height / (float)startButton.width) * 0.05f);
+        endButton.width = (int)(backgroundImage.width * 0.05f);
+        endButton.SetXY((game.width / 5.9f) - startButton.width / 2, game.height / 1.95f);
     }
 }
 

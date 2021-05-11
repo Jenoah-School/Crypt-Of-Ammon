@@ -21,17 +21,17 @@ public class MyGame : Game
 
 		RenderMain = false;
 		levelManager = new LevelManager();
-		//UserInterfaceManager = new UIManager();
+		UserInterfaceManager = new UIManager();
 
 		targetFps = 60;
 
 		AddChild(levelManager);
-		//AddChild(UserInterfaceManager);
+		AddChild(UserInterfaceManager);
 	}
 
 	void Update()
     {
-		//SetChildIndex(UserInterfaceManager, 10000);
+		SetChildIndex(UserInterfaceManager, 10000);
 	}
 
 	static void Main()

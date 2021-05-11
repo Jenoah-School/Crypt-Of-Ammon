@@ -14,9 +14,10 @@ public class UIManager : GameObject
         UserInterfaces.Add(new LoadScreenTeamLogo());
         UserInterfaces.Add(new LoadScreenGameLogo());
         UserInterfaces.Add(new MainMenu());
+        UserInterfaces.Add(new ComicUI());
         UserInterfaces.Add(new PlayingUI());
 
-        AddInterface(0);
+        AddInterface(2);
     }
 
     public void AddInterface(int number)
