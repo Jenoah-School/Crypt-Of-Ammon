@@ -11,6 +11,7 @@ public class HorizontalLevel : Level
     private Background background;
     private Door hubDoor;
     private Entity bridge, gate;
+    private Vec2 previousCameraPos = new Vec2();
 
     private int pressurePlatesDown = 0;
 
@@ -24,6 +25,7 @@ public class HorizontalLevel : Level
         Entity leftWall = new Entity("Assets/Sprites/square.png", new Vec2(48, currentLevelSize.y / 2f), 96, (int)currentLevelSize.y, false, true, float.PositiveInfinity, 0f);
         Entity leftFloorBlockPiece = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 96, floor.y - floor.height / 2f - 32), 192, 64, false, true, float.PositiveInfinity, 0f);
         Entity leftPiece = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 580, currentLevelSize.y / 2 - 36), 1160, 64, false, true, float.PositiveInfinity, 0f);
+        Entity leftPieceCeiling = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 340, 360), 680, 64, false, true, float.PositiveInfinity, 0f);
         Entity leftPieceTop = new Entity("Assets/Sprites/square.png", new Vec2(816, 364), 98, 600, false, true, float.PositiveInfinity, 0f);
         Entity leftPieceSlope = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 560, currentLevelSize.y / 2 + 148), 1200, 64, false, true, float.PositiveInfinity, 0f);
         Entity leftBlockPiece = new Entity("Assets/Sprites/square.png", new Vec2(leftWall.x + leftWall.width / 2f + 128, currentLevelSize.y / 2 - 96), 256, 64, false, true, float.PositiveInfinity, 0f);
@@ -32,6 +34,7 @@ public class HorizontalLevel : Level
         Entity leftCenterChainedPiece1 = new Entity("Assets/Sprites/square.png", new Vec2(2832, currentLevelSize.y / 2 - 236), 300, 64, false, true, float.PositiveInfinity, 0f);
         Entity leftCenterChainedPiece2 = new Entity("Assets/Sprites/square.png", new Vec2(2730, currentLevelSize.y / 2 - 292), 96, 64, false, true, float.PositiveInfinity, 0f);
         Entity centerBottomPiece = new Entity("Assets/Sprites/square.png", new Vec2(4226, currentLevelSize.y - 290), 2296, 512, false, true, float.PositiveInfinity, 0f);
+        Entity centerBottomBlock = new Entity("Assets/Sprites/square.png", new Vec2(currentLevelSize.x / 2f + 1352, centerBottomPiece.y - centerBottomPiece.height / 2f - 24), 96, 48, false, true, float.PositiveInfinity, 0f);
         Entity centerSlope = new Entity("Assets/Sprites/square.png", new Vec2(2762, currentLevelSize.y - 69), 1024, 512, false, true, float.PositiveInfinity, 0f);
         Entity centerTopPiece = new Entity("Assets/Sprites/square.png", new Vec2(4072, 572), 1636, 64, false, true, float.PositiveInfinity, 0f);
         Entity centerTopBlock = new Entity("Assets/Sprites/square.png", new Vec2(4762, 508), 256, 64, false, true, float.PositiveInfinity, 0f);
@@ -44,9 +47,9 @@ public class HorizontalLevel : Level
         bridge = new Entity("Assets/Sprites/Bridge_01.png", new Vec2(currentLevelSize.x - currentLevelSize.x / 4f + 328, currentLevelSize.y / 2 + 579), 1484, -1, false, true, float.PositiveInfinity, 0f);
         gate = new Entity("Assets/Sprites/Gate_01.png", new Vec2(816, currentLevelSize.y / 2 - 248), 98, -1, false, true, float.PositiveInfinity, 0f);
 
-        Entity pushBox1 = new Entity("Assets/Sprites/Box_01.png", new Vec2(512, currentLevelSize.y / 2 - 256), 164, -1, true, true, 1, 0);
-        Entity pushBox2 = new Entity("Assets/Sprites/Box_01.png", new Vec2(1536, currentLevelSize.y - 256), 164, -1, true, true, 1, 0);
-        Entity pushBox3 = new Entity("Assets/Sprites/Box_01.png", new Vec2(currentLevelSize.x / 2 + 384, 256), 164, -1, true, true, 1, 0);
+        Box pushBox1 = new Box(new Vec2(512, currentLevelSize.y / 2 - 256), 164);
+        Box pushBox2 = new Box(new Vec2(1536, currentLevelSize.y - 256), 164);
+        Box pushBox3 = new Box(new Vec2(currentLevelSize.x / 2 + 384, 256), 164);
 
         hubDoor = new Door(new Vec2(512, floor.y - floor.height / 2f - 192), 472, -1, 0, false);
 
@@ -61,6 +64,10 @@ public class HorizontalLevel : Level
         Torch torch4 = new Torch(new Vec2(3018, 592), 1920, 1580);
         Torch torch5 = new Torch(new Vec2(3298, 272), 1920, 1580);
         Torch torch6 = new Torch(new Vec2(3146, 1364), 1920, 1580);
+        Torch torch7 = new Torch(new Vec2(4652, 228), 1920, 1580);
+        Torch torch8 = new Torch(new Vec2(5184, 1312), 1920, 1580);
+        Torch torch9 = new Torch(new Vec2(currentLevelSize.x - 822, 1364), 1920, 1580);
+        Torch torch10 = new Torch(new Vec2(currentLevelSize.x - 152, 1336), 1920, 1580);
 
         pressurePlate1.ignoreColliders.Add(pushBox1.collider);
         pressurePlate1.ignoreColliders.Add(pushBox2.collider);
@@ -100,10 +107,12 @@ public class HorizontalLevel : Level
         sceneObjects.Add(leftFloorBlockPiece);
         sceneObjects.Add(leftPiece);
         sceneObjects.Add(leftPieceTop);
+        sceneObjects.Add(leftPieceCeiling);
         sceneObjects.Add(leftPieceSlope);
         sceneObjects.Add(leftBlockPiece);
         sceneObjects.Add(leftCenterPiece);
         sceneObjects.Add(centerBottomPiece);
+        sceneObjects.Add(centerBottomBlock);
         sceneObjects.Add(centerSlope);
         sceneObjects.Add(centerTopPiece);
         sceneObjects.Add(leftCenterChainedPiece);
@@ -120,7 +129,6 @@ public class HorizontalLevel : Level
         sceneObjects.Add(gate);
         sceneObjects.Add(bridge);
         sceneObjects.Add(roof);
-        //sceneObjects.Add(hubDoor);
 
         sceneObjects.Add(player);
 
@@ -128,11 +136,13 @@ public class HorizontalLevel : Level
         leftWall.visible = false;
         leftFloorBlockPiece.visible = false;
         leftPiece.visible = false;
+        leftPieceCeiling.visible = false;
         leftPieceSlope.visible = false;
         leftBlockPiece.visible = false;
         leftPieceTop.visible = false;
         leftCenterPiece.visible = false;
         centerBottomPiece.visible = false;
+        centerBottomBlock.visible = false;
         centerSlope.visible = false;
         centerTopPiece.visible = false;
         leftCenterChainedPiece.visible = false;
@@ -146,6 +156,7 @@ public class HorizontalLevel : Level
         roof.visible = false;
 
         leftWall.ignoreColliders.Add(floor.collider);
+        leftWall.ignoreColliders.Add(leftPieceCeiling.collider);
         leftFloorBlockPiece.ignoreColliders.Add(floor.collider);
         leftWall.ignoreColliders.Add(leftFloorBlockPiece.collider);
         leftPiece.ignoreColliders.Add(leftWall.collider);
@@ -157,6 +168,7 @@ public class HorizontalLevel : Level
         centerBottomPiece.ignoreColliders.Add(floor.collider);
         centerSlope.ignoreColliders.Add(floor.collider);
         centerBottomPiece.ignoreColliders.Add(centerSlope.collider);
+        centerBottomPiece.ignoreColliders.Add(centerBottomBlock.collider);
         leftCenterChainedPiece.ignoreColliders.Add(leftCenterChainedPiece1.collider);
         leftCenterChainedPiece2.ignoreColliders.Add(leftCenterChainedPiece1.collider);
         centerTopPiece.ignoreColliders.Add(centerTopBlock.collider);
@@ -178,10 +190,12 @@ public class HorizontalLevel : Level
         AddChild(leftFloorBlockPiece);
         AddChild(leftPiece);
         AddChild(leftPieceTop);
+        AddChild(leftPieceCeiling);
         AddChild(leftPieceSlope);
         AddChild(leftBlockPiece);
         AddChild(leftCenterPiece);
         AddChild(centerBottomPiece);
+        AddChild(centerBottomBlock);
         AddChild(centerSlope);
         AddChild(leftCenterChainedPiece);
         AddChild(leftCenterChainedPiece1);
@@ -201,6 +215,10 @@ public class HorizontalLevel : Level
         AddChild(torch4);
         AddChild(torch5);
         AddChild(torch6);
+        AddChild(torch7);
+        AddChild(torch8);
+        AddChild(torch9);
+        AddChild(torch10);
 
         AddChild(pressurePlate1);
         AddChild(pressurePlate2);
@@ -217,7 +235,8 @@ public class HorizontalLevel : Level
         AddChild(cam);
 
         cam.SetXY(currentLevelSize.x / 1.333f, currentLevelSize.y / 2f);
-        cam.scale = 2f;
+        previousCameraPos = new Vec2(cam.x, cam.y);
+        cam.scale = 3f;
 
         hubDoor.isOpened = true;
 
@@ -234,7 +253,8 @@ public class HorizontalLevel : Level
 
     void MoveBackgrounds()
     {
-        background.MoveLayersWithDistance(new float[] { 0.8f, 1.6f, 2f, 0 }, player.rigidbody.velocity);
+        background.MoveLayersWithDistance(new float[] { 0.4f, 0.8f, 1f, 0 }, new Vec2(cam.x, cam.y) - previousCameraPos);
+        previousCameraPos = new Vec2(cam.x, cam.y);
     }
 
     void ActivatePressurePlate(Trigger _pressurePlate)
@@ -265,7 +285,7 @@ public class HorizontalLevel : Level
         {
             gate.visible = true;
             if (!MyGame.collisionObjects.Contains(gate.collider))
-                MyGame.collisionObjects.Add(gate.collider);
+                MyGame.collisionObjects.Insert(4, gate.collider);
             if (player.ignoreColliders.Contains(gate.collider))
                 player.ignoreColliders.Remove(gate.collider);
         }
@@ -274,7 +294,7 @@ public class HorizontalLevel : Level
         {
             bridge.visible = true;
             if (!MyGame.collisionObjects.Contains(bridge.collider))
-                MyGame.collisionObjects.Add(bridge.collider);
+                MyGame.collisionObjects.Insert(4, bridge.collider);
             if (player.ignoreColliders.Contains(bridge.collider))
                 player.ignoreColliders.Remove(bridge.collider);
         }

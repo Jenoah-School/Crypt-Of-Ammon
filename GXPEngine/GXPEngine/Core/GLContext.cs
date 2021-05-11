@@ -86,7 +86,8 @@ namespace GXPEngine.Core {
 			_vsyncEnabled = vSync;
 			
 			GL.glfwInit();
-			
+			GL.glfwOpenWindowHint(0x00020012, 1);
+
 			GL.glfwOpenWindowHint(GL.GLFW_FSAA_SAMPLES, 8);
 			GL.glfwOpenWindow(realWidth, realHeight, 8, 8, 8, 8, 24, 0, (fullScreen?GL.GLFW_FULLSCREEN:GL.GLFW_WINDOWED));
 			GL.glfwSetWindowTitle("Game");

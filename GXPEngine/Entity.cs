@@ -92,7 +92,7 @@ public class Entity : AnimationSprite
         //return (position - previousPosition).y > -0.4f && (position - previousPosition).y < 0.4f;
         foreach(Entity _ent in MyGame.Instance.levelManager.currentLevel.sceneObjects.ToList())
         {
-            if(_ent == MyGame.Instance.levelManager.currentLevel.player || _ent.ignoreColliders.Contains(collider) ||ignoreColliders.Contains(_ent.collider))
+            if(_ent == MyGame.Instance.levelManager.currentLevel.player || _ent.ignoreColliders.Contains(collider) || ignoreColliders.Contains(_ent.collider))
             {
                 continue;
             }
