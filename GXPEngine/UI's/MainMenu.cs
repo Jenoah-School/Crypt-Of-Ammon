@@ -43,9 +43,7 @@ class MainMenu : UI
         base.Update();
         graphics.Clear(Color.Black);
 
-        //if (canPlaySound) sound.Play(false, 0, 0.5f,0); canPlaySound = false;
-
-        //Console.WriteLine(Input.mouseX + " " + startButton.x + " " + width);
+        if (canPlaySound) sound.Play(false, 0, 0.5f,0); canPlaySound = false;
 
         if (startButton.IsClicked())
         {

@@ -6,7 +6,7 @@ public class Player : Entity
     public Vec2 levelOffset = new Vec2();
 
     private float speed = 5f;
-    private float thrustSpeed = 1768f;
+    private float thrustSpeed = 2256;
     private float reachDistance = 300f;
 
     private IK leftArm, rightArm;
