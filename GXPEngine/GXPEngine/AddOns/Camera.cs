@@ -5,7 +5,7 @@ namespace GXPEngine {
 	/// (Don't forget to add this as child somewhere in the hierarchy.)
 	/// </summary>
 	public class Camera : GameObject {
-		Window _renderTarget;
+		public Window _renderTarget { get; private set; }
 
 		/// <summary>
 		/// Creates a camera game object and a sub window to render to.

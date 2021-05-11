@@ -15,8 +15,8 @@ class LoadScreenGameLogo : UI
         logo.SetOrigin(logo.width / 2, logo.height / 2);
 
         logo.SetXY(width / 2 , height / 2);
-        logo.scaleY = 1.25f;
-        logo.scaleX = 1.65f;
+        logo.height = (int)(game.width * ((float)logo.height / (float)logo.width));
+        logo.width = game.width;
         logo.alpha = 0;
         AddChild(logo);
     }

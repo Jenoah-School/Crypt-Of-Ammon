@@ -7,40 +7,25 @@ using GXPEngine;
 
 class Button : Sprite
 {
-    public Button() : base("Assets/Images/buttonPlaceholder.png", false, true)
+    public Button() : base("Assets/Images/buttonPlaceholder.png")
     {
 
-    }
-
-    public bool IsPressed()
-    {
-        return HitTestPoint(Input.mouseX, Input.mouseY);
     }
 
     public bool IsClicked()
     {
-        bool isClicked = false;
-
-        int mousePosX;
-        int mousePosY;
-
-        mousePosX = (int)(2920 / (float)((UI)parent).width * (float)Input.mouseX);
-        mousePosY = (int)(1620 / (float)((UI)parent).height * (float)Input.mouseY);
-
+        int mousePosX = Input.mouseX;
+        int mousePosY = Input.mouseY;
 
         if (Input.GetMouseButtonUp(0))
         {
-            if(mousePosX > x && mousePosX < x + width && mousePosY > y && mousePosY < y + height)
+            if (mousePosX > x && mousePosX < x + width && mousePosY > y && mousePosY < y + height)
             {
-                isClicked = true;
-            }
-            else
-            {
-                isClicked = false;
+                return true;
             }
         }
 
-        return isClicked;
+        return false;
     }
 }
 
