@@ -65,7 +65,8 @@
     <Compile Include="Animation.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="GXPEngine\GameObject.cs" />
-    <Compile Include="Interactibles\Door.cs" />
+    <Compile Include="Level Props\Door.cs" />
+    <Compile Include="Level Props\Torch.cs" />
     <Compile Include="Levels\HorizontalLevel.cs" />
     <Compile Include="Levels\HubLevel.cs" />
     <Compile Include="Levels\Level.cs" />
