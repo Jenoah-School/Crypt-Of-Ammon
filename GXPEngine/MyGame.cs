@@ -35,7 +35,7 @@ public class MyGame : Game
         SetChildIndex(UserInterfaceManager, 10000);
         if (Input.GetKeyUp(Key.R))
         {
-			//levelManager.RestartLevel();
+			levelManager.RestartLevel();
         }
 	}
 
