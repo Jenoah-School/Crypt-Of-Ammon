@@ -101,8 +101,8 @@ public class Player : Entity
         pole.SetXY(poleTargetPos.x, poleTargetPos.y);
         pole.rotation = poleTargetRotation + 90;
 
-        Vec2 leftHandTargetPos = new Vec2(pole.x, pole.y) - new Vec2(pole.TransformDirection(-128, 1));
-        Vec2 rightHandTargetPos = new Vec2(pole.x, pole.y) - new Vec2(pole.TransformDirection(128, 1));
+        Vec2 leftHandTargetPos = new Vec2(pole.x, pole.y) - new Vec2(TransformDirection(-256, 0));
+        Vec2 rightHandTargetPos = new Vec2(pole.x, pole.y) - new Vec2(TransformDirection(256, 0));
 
         leftHandTarget.SetXY(leftHandTargetPos.x, leftHandTargetPos.y);
         rightHandTarget.SetXY(rightHandTargetPos.x, rightHandTargetPos.y);
@@ -121,7 +121,7 @@ public class Player : Entity
             lastThrustTime = Time.time;
             position += new Vec2(0, 5f);
             skipResolve = true;
-            Vec2 thrustForce = new Vec2(0, -thrustSpeed);
+            Vec2 thrustForce = new Vec2(0, thrustSpeed);
             thrustForce.RotateDegrees(pole.rotation);
             rigidbody.AddForce(thrustForce);
             if (thurstSound != null)

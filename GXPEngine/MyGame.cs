@@ -18,6 +18,7 @@ public class MyGame : Game
 
 		GL.glfwSetWindowPos((Screen.PrimaryScreen.Bounds.Width - width) / 2, (10));
 		GL.glfwSetWindowTitle("Final Approach");
+		
 
 		RenderMain = false;
 		levelManager = new LevelManager();

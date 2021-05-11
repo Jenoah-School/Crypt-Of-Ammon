@@ -11,6 +11,7 @@ public class HorizontalLevel : Level
     private Background background;
     private Door hubDoor;
     private Entity bridge, gate;
+    private Vec2 previousCameraPos = new Vec2();
 
     private int pressurePlatesDown = 0;
 
@@ -33,6 +34,7 @@ public class HorizontalLevel : Level
         Entity leftCenterChainedPiece1 = new Entity("Assets/Sprites/square.png", new Vec2(2832, currentLevelSize.y / 2 - 236), 300, 64, false, true, float.PositiveInfinity, 0f);
         Entity leftCenterChainedPiece2 = new Entity("Assets/Sprites/square.png", new Vec2(2730, currentLevelSize.y / 2 - 292), 96, 64, false, true, float.PositiveInfinity, 0f);
         Entity centerBottomPiece = new Entity("Assets/Sprites/square.png", new Vec2(4226, currentLevelSize.y - 290), 2296, 512, false, true, float.PositiveInfinity, 0f);
+        Entity centerBottomBlock = new Entity("Assets/Sprites/square.png", new Vec2(currentLevelSize.x / 2f + 1352, centerBottomPiece.y - centerBottomPiece.height / 2f - 24), 96, 48, false, true, float.PositiveInfinity, 0f);
         Entity centerSlope = new Entity("Assets/Sprites/square.png", new Vec2(2762, currentLevelSize.y - 69), 1024, 512, false, true, float.PositiveInfinity, 0f);
         Entity centerTopPiece = new Entity("Assets/Sprites/square.png", new Vec2(4072, 572), 1636, 64, false, true, float.PositiveInfinity, 0f);
         Entity centerTopBlock = new Entity("Assets/Sprites/square.png", new Vec2(4762, 508), 256, 64, false, true, float.PositiveInfinity, 0f);
@@ -45,9 +47,9 @@ public class HorizontalLevel : Level
         bridge = new Entity("Assets/Sprites/Bridge_01.png", new Vec2(currentLevelSize.x - currentLevelSize.x / 4f + 328, currentLevelSize.y / 2 + 579), 1484, -1, false, true, float.PositiveInfinity, 0f);
         gate = new Entity("Assets/Sprites/Gate_01.png", new Vec2(816, currentLevelSize.y / 2 - 248), 98, -1, false, true, float.PositiveInfinity, 0f);
 
-        Entity pushBox1 = new Entity("Assets/Sprites/Box_01.png", new Vec2(512, currentLevelSize.y / 2 - 256), 164, -1, true, true, 1, 0);
-        Entity pushBox2 = new Entity("Assets/Sprites/Box_01.png", new Vec2(1536, currentLevelSize.y - 256), 164, -1, true, true, 1, 0);
-        Entity pushBox3 = new Entity("Assets/Sprites/Box_01.png", new Vec2(currentLevelSize.x / 2 + 384, 256), 164, -1, true, true, 1, 0);
+        Box pushBox1 = new Box(new Vec2(512, currentLevelSize.y / 2 - 256), 164);
+        Box pushBox2 = new Box(new Vec2(1536, currentLevelSize.y - 256), 164);
+        Box pushBox3 = new Box(new Vec2(currentLevelSize.x / 2 + 384, 256), 164);
 
         hubDoor = new Door(new Vec2(512, floor.y - floor.height / 2f - 192), 472, -1, 0, false);
 
@@ -110,6 +112,7 @@ public class HorizontalLevel : Level
         sceneObjects.Add(leftBlockPiece);
         sceneObjects.Add(leftCenterPiece);
         sceneObjects.Add(centerBottomPiece);
+        sceneObjects.Add(centerBottomBlock);
         sceneObjects.Add(centerSlope);
         sceneObjects.Add(centerTopPiece);
         sceneObjects.Add(leftCenterChainedPiece);
@@ -139,6 +142,7 @@ public class HorizontalLevel : Level
         leftPieceTop.visible = false;
         leftCenterPiece.visible = false;
         centerBottomPiece.visible = false;
+        centerBottomBlock.visible = false;
         centerSlope.visible = false;
         centerTopPiece.visible = false;
         leftCenterChainedPiece.visible = false;
@@ -164,6 +168,7 @@ public class HorizontalLevel : Level
         centerBottomPiece.ignoreColliders.Add(floor.collider);
         centerSlope.ignoreColliders.Add(floor.collider);
         centerBottomPiece.ignoreColliders.Add(centerSlope.collider);
+        centerBottomPiece.ignoreColliders.Add(centerBottomBlock.collider);
         leftCenterChainedPiece.ignoreColliders.Add(leftCenterChainedPiece1.collider);
         leftCenterChainedPiece2.ignoreColliders.Add(leftCenterChainedPiece1.collider);
         centerTopPiece.ignoreColliders.Add(centerTopBlock.collider);
@@ -190,6 +195,7 @@ public class HorizontalLevel : Level
         AddChild(leftBlockPiece);
         AddChild(leftCenterPiece);
         AddChild(centerBottomPiece);
+        AddChild(centerBottomBlock);
         AddChild(centerSlope);
         AddChild(leftCenterChainedPiece);
         AddChild(leftCenterChainedPiece1);
@@ -229,6 +235,7 @@ public class HorizontalLevel : Level
         AddChild(cam);
 
         cam.SetXY(currentLevelSize.x / 1.333f, currentLevelSize.y / 2f);
+        previousCameraPos = new Vec2(cam.x, cam.y);
         cam.scale = 3f;
 
         hubDoor.isOpened = true;
@@ -246,7 +253,8 @@ public class HorizontalLevel : Level
 
     void MoveBackgrounds()
     {
-        background.MoveLayersWithDistance(new float[] { 0.8f, 1.6f, 2f, 0 }, player.rigidbody.velocity);
+        background.MoveLayersWithDistance(new float[] { 0.4f, 0.8f, 1f, 0 }, new Vec2(cam.x, cam.y) - previousCameraPos);
+        previousCameraPos = new Vec2(cam.x, cam.y);
     }
 
     void ActivatePressurePlate(Trigger _pressurePlate)
