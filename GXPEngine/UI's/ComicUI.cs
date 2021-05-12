@@ -46,6 +46,7 @@ class ComicUI : UI
             channel.Volume -= 0.05f;
             MyGame.Instance.UserInterfaceManager.RemoveInterface(3);
             MyGame.Instance.UserInterfaceManager.AddInterface(4);
+            MyGame.Instance.levelManager.ingameMusic.IsPaused = false;
         }
     }
 }

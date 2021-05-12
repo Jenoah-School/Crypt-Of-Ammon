@@ -15,6 +15,9 @@ namespace GXPEngine
 
         MyGame myGame;
 
+        public SoundChannel ingameMusic;
+        private Sound ingameBackgroundMusic;
+
         public LevelManager()
         {
             levels = new List<Level>();
@@ -30,6 +33,9 @@ namespace GXPEngine
             levels.Add(new TestLevelJenoah1());
 
             SwitchLevel(0);
+
+            ingameBackgroundMusic = new Sound("Assets/Audio/Music/fa_ammon_loop.mp3", true, false);
+            ingameMusic = ingameBackgroundMusic.Play(true, 0, 0.25f, 0);
         }
 
         public void RestartLevel()
