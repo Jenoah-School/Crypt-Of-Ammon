@@ -54,7 +54,7 @@ public class HubLevel : Level
         Torch torch6 = new Torch(new Vec2(2060, 1150), 1920, 1580);
 
         door1 = new Door(new Vec2(3150, 1850), 472, 442, 1, true);
-        door2 = new Door(new Vec2(3300, 880), 472, 442, 1, true);
+        door2 = new Door(new Vec2(3300, 880), 472, 442, 3, true);
 
         rightPlatform3.rotation = 20;
         leftPlatform3.rotation = -20;
@@ -159,6 +159,7 @@ public class HubLevel : Level
     void Update()
     {
         base.Update();
+        door2.currentFrame = 4;
         MoveBackgrounds();
     }
 

@@ -73,12 +73,7 @@ public class Player : Entity
     public void HandleInput()
     {
         if (!((Level)parent).canMove)
-                return;
-
-        if (Input.GetKeyDown(Key.SPACE))
-        {
-            rigidbody.AddForce(new Vec2(0, -382f), false);
-        }
+                return;     
 
         if (IsGrounded())
         {

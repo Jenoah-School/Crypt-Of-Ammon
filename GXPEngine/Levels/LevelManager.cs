@@ -29,6 +29,7 @@ namespace GXPEngine
             levels.Add(new HubLevel());
             levels.Add(new HorizontalLevel());
             levels.Add(new VerticalLevel());
+            levels.Add(new EndLevelScreen());
 
 
             levels.Add(new TestLevelArjen());
