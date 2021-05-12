@@ -74,15 +74,15 @@ public class Door : Entity
 
     void CheckIfPlayerIsNear()
     {
-       if((MyGame.Instance.levelManager.currentLevel.player.position - position).Length() < 300)
+       if((MyGame.Instance.levelManager.currentLevel.player.position - position).Length() < 150)
        {
             if (isOpened)
             {
                 interactText.visible = true;
-                if (Input.GetKeyUp(Key.ENTER))
+                if (Input.GetKeyUp(Key.ENTER) && MyGame.Instance.levelManager.isEnteringDoor == false)
                 {
-                    MyGame.Instance.levelManager.SwitchLevel(levelDestination);
-
+                    MyGame.Instance.levelManager.isEnteringDoor = true;
+                    MyGame.Instance.levelManager.levelDestination = levelDestination;
                 }
             }
         }
