@@ -242,7 +242,7 @@ public class HorizontalLevel : Level
 
         AddChild(cam);
 
-        cam.SetXY(currentLevelSize.x / 1.333f, currentLevelSize.y / 2f);
+        cam.SetXY(player.x, player.y);
         previousCameraPos = new Vec2(cam.x, cam.y);
         cam.scale = 2f;
         lever.AddUIText(this);

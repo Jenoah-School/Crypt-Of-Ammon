@@ -13,6 +13,7 @@ public class Player : Entity
     private float thrustDelay = 750f;
 
     public bool hasStaff = true;
+    public bool canMove = true;
 
     private IK leftArm, rightArm;
     private Entity pole;
@@ -46,7 +47,7 @@ public class Player : Entity
 
     public void Update()
     {
-        if (MyGame.Instance.HasChild(MyGame.Instance.UserInterfaceManager) && !MyGame.Instance.UserInterfaceManager.HasChild(MyGame.Instance.UserInterfaceManager.UserInterfaces[4]))
+        if (MyGame.Instance.HasChild(MyGame.Instance.UserInterfaceManager) && !MyGame.Instance.UserInterfaceManager.HasChild(MyGame.Instance.UserInterfaceManager.UserInterfaces[4]) || canMove == false)
         {
             return;
         }

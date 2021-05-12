@@ -18,6 +18,9 @@ namespace GXPEngine
         public SoundChannel ingameMusic;
         private Sound ingameBackgroundMusic;
 
+        public bool isEnteringDoor;
+        public int levelDestination;
+
         public LevelManager()
         {
             levels = new List<Level>();
