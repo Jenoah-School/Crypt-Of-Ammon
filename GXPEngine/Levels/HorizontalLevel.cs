@@ -45,7 +45,7 @@ public class HorizontalLevel : Level
         Entity rightWall = new Entity("Assets/Sprites/square.png", new Vec2(currentLevelSize.x - 48, currentLevelSize.y / 2f), 96, (int)currentLevelSize.y, false, true, float.PositiveInfinity, 0f);
         Entity roof = new Entity("Assets/Sprites/square.png", new Vec2(currentLevelSize.x / 2, 32), (int)currentLevelSize.x, 64, false, true, float.PositiveInfinity, 0f);
 
-        bridge = new Entity("Assets/Sprites/Bridge_01.png", new Vec2(currentLevelSize.x - currentLevelSize.x / 4f + 328, currentLevelSize.y / 2 + 579), 1484, -1, false, true, float.PositiveInfinity, 0f);
+        bridge = new Entity("Assets/Sprites/Bridge_01.png", new Vec2(currentLevelSize.x - currentLevelSize.x / 4f + 328, currentLevelSize.y / 2 + 595), 1484, -1, false, true, float.PositiveInfinity, 0f);
         gate = new Entity("Assets/Sprites/Gate_01.png", new Vec2(816, currentLevelSize.y / 2 - 248), 98, -1, false, true, float.PositiveInfinity, 0f);
 
         Box pushBox1 = new Box(new Vec2(512, currentLevelSize.y / 2 - 256), 164);

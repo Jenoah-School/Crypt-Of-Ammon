@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 public class HubLevel : Level
 {
-    Background background;
-    Door door1;
-    Lever staff;
-    StaffLight staffLight;
+    private Background background;
+    private Door door1;
+    private Lever staff;
+    private StaffLight staffLight;
+    private Vec2 previousCameraPos = new Vec2();
     public Door door2 { get; private set; }
 
     private int pressurePlatesDown = 0;
@@ -45,7 +46,7 @@ public class HubLevel : Level
         Trigger pressurePlate = new Trigger("Assets/Sprites/Pressure_Plate_01.png", new Vec2(2450,2045), 256);
 
 		staff = new Lever("Assets/Sprites/Player/handStaff.png", new Vec2(1042, currentLevelSize.y - 256f), 36);
-        staffLight = new StaffLight(new Vec2(staff.x, staff.y - staff.height / 3f), 480, 480);
+        staffLight = new StaffLight(new Vec2(staff.x + 8, staff.y - staff.height / 3f), 480, 480);
         staff.rotation = 0;
 
         Torch torch1 = new Torch(new Vec2(500, 1750), 1920, 1580);
@@ -63,6 +64,7 @@ public class HubLevel : Level
 
 
         cam.SetXY(currentLevelSize.x / 1.333f, currentLevelSize.y / 2f);
+        previousCameraPos = new Vec2(cam.x, cam.y);
         cam.scale = 2f;
 
         AddChild(background);       
@@ -162,13 +164,14 @@ public class HubLevel : Level
     void Update()
     {
         base.Update();
-        door2.currentFrame = 4;
+        //door2.currentFrame = 4;
         MoveBackgrounds();
     }
 
     void MoveBackgrounds()
     {
-        background.MoveLayersWithDistance(new float[] { 0.4f, 0.8f, 0.2f, 0 }, player.rigidbody.velocity);
+        background.MoveLayersWithDistance(new float[] { 0.4f, 0.8f, 1f, 0 }, new Vec2(cam.x, cam.y) - previousCameraPos);
+        previousCameraPos = new Vec2(cam.x, cam.y);
     }
 
     void ActivateStaff()

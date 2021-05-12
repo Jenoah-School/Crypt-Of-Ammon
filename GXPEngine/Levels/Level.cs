@@ -20,6 +20,7 @@ public class Level : GameObject
     private bool _isLoaded;
     public Vec2 currentLevelSize;
 
+
     public Level()
     {
         //cam = new Camera(0, 0, 1920, 1080);

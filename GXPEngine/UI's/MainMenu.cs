@@ -8,17 +8,17 @@ using System.Drawing;
 
 class MainMenu : UI
 {
-    Sprite backgroundImage;
+    public Sprite backgroundImage { get; private set; }
 
-    SoundChannel channel;
+    public SoundChannel channel;
     Sound sound;
 
     Button startButton;
     Button endButton;
 
-    bool canPlaySound = true;
+    public bool canPlaySound = true;
 
-    bool isTransitioning;
+    public bool isTransitioning;
 
 
     public MainMenu()
@@ -38,7 +38,7 @@ class MainMenu : UI
         endButton.scale = 0.5f;
         endButton.SetXY((game.width / 5.9f) - startButton.width / 2, game.height / 2.05f);
 
-        sound = new Sound("Assets/Sounds/mainMenu.mp3");
+        sound = new Sound("Assets/Sounds/mainMenu.mp3", true);
 
         AddChild(backgroundImage);
         AddChild(startButton);

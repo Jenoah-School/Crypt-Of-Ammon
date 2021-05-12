@@ -19,7 +19,7 @@ public class UIManager : GameObject
         UserInterfaces.Add(new DeathScreen());
         UserInterfaces.Add(new EndScreen());
 
-        AddInterface(4);
+        AddInterface(0);
     }
 
     public void AddInterface(int number)

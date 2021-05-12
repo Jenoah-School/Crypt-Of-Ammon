@@ -25,11 +25,11 @@ public class EndLevelScreen : Level
     void Update()
     {
         base.Update();
-        Console.WriteLine("hoi");
+        //Console.WriteLine("hoi");
         if(startScreen)
         {
             startScreen = false;
-            MyGame.Instance.UserInterfaceManager.RemoveInterface(2);
+            //MyGame.Instance.UserInterfaceManager.RemoveInterface(2);
             MyGame.Instance.UserInterfaceManager.AddInterface(6);
         }
     }

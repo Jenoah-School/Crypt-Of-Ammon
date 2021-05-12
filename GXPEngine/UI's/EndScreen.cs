@@ -27,6 +27,7 @@ class EndScreen : UI
 
     void Update()
     {
+        MyGame.Instance.levelManager.ingameMusic.IsPaused = true;
         base.Update();
         graphics.Clear(Color.Black);
 
@@ -43,11 +44,17 @@ class EndScreen : UI
             comic.alpha -= 0.001f;
             channel.Volume -= 0.0005f;
         }
+        Console.WriteLine($"Volume: {channel.Volume}");
         if(channel.Volume < 0)
         {
-            channel.Volume = 0;
+            Console.WriteLine("Transitioning");
             MyGame.Instance.UserInterfaceManager.RemoveInterface(6);
             MyGame.Instance.UserInterfaceManager.AddInterface(2);
+            ((MainMenu)MyGame.Instance.UserInterfaceManager.UserInterfaces[2]).backgroundImage.alpha = 1f;
+            ((MainMenu)MyGame.Instance.UserInterfaceManager.UserInterfaces[2]).isTransitioning = false;
+            ((MainMenu)MyGame.Instance.UserInterfaceManager.UserInterfaces[2]).canPlaySound = true;
+            ((MainMenu)MyGame.Instance.UserInterfaceManager.UserInterfaces[2]).channel.Volume = 0.5f;
+            channel.Volume = 0;
         }
         if(comic.alpha < 0)
         {
