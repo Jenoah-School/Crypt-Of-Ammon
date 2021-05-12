@@ -10,14 +10,14 @@ class Box : Entity
     SoundChannel boxMoveChannel;
     Sound boxMoveSound;
 
-    float audioAdjustTime = 1500f;
+    float audioAdjustTime = 3000f;
 
     public Box(Vec2 _position, int _size) : base("Assets/Sprites/Box_01.png", _position, _size, -1, true, true, 1, 0)
     {
         boxMoveSound = new Sound("Assets/Audio/SoundFX/fa_boxMove.mp3", true);
         boxMoveChannel = boxMoveSound.Play(false, 0, 0, 0);
 
-        audioAdjustTime = Time.time + 1500;
+        audioAdjustTime += Time.time;
     }
 
     void Update()

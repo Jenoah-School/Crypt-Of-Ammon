@@ -48,12 +48,18 @@ class TriggerCollider : Entity
         {
             if (isPressed)
             {
-                _collisionEvent.Invoke();
-                PlayTriggerSound();
+                if (_collisionEvent != null)
+                {
+                    _collisionEvent.Invoke();
+                    PlayTriggerSound();
+                }
             }
             else
             {
-                untriggerEvent.Invoke();
+                if (untriggerEvent != null)
+                {
+                    untriggerEvent.Invoke();
+                }
             }
         }
 
