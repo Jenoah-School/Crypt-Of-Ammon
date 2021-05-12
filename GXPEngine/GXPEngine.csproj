@@ -134,6 +134,8 @@
     <Compile Include="Level Props\Trigger.cs" />
     <Compile Include="UI%27s\Button.cs" />
     <Compile Include="UI%27s\ComicUI.cs" />
+    <Compile Include="UI%27s\DeathScreen.cs" />
+    <Compile Include="UI%27s\EndScreen.cs" />
     <Compile Include="UI%27s\LoadScreenGameLogo.cs" />
     <Compile Include="UI%27s\LoadScreenTeamLogo.cs" />
     <Compile Include="UI%27s\MainMenu.cs" />

@@ -82,6 +82,7 @@ public class Door : Entity
                 if (Input.GetKeyUp(Key.ENTER))
                 {
                     MyGame.Instance.levelManager.SwitchLevel(levelDestination);
+
                 }
             }
         }

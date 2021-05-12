@@ -247,7 +247,8 @@ public class HorizontalLevel : Level
         cam.scale = 2f;
         lever.AddUIText(this);
         hubDoor.AddUIText(this);
-        deathTrigger.SetTriggerEvent(new Action(() => MyGame.Instance.levelManager.RestartLevel()));
+        
+        deathTrigger.SetTriggerEvent(new Action(() => TouchedSpikes()));
 
         hubDoor.isOpened = true;
 
@@ -258,8 +259,12 @@ public class HorizontalLevel : Level
     {
         base.Update();
         MoveBackgrounds();
-
         hubDoor.currentFrame = 4;
+    }
+
+    void TouchedSpikes()
+    {       
+        MyGame.Instance.UserInterfaceManager.AddInterface(5);
     }
 
     void MoveBackgrounds()

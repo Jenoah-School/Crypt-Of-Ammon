@@ -9,13 +9,15 @@ using System.Threading.Tasks;
 class DeathScreen : UI
 {
     Sprite image;
+    SoundChannel channel;
     Sound sound;
+
     bool canPlaySound = true;
 
     public DeathScreen()
     {
         image = new Sprite("Assets/Images/youdied.png", false);
-        sound = new Sound("Assets/Sounds/teamLogo.wav");
+        sound = new Sound("Assets/Sounds/fa_fuckingDead.mp3");
 
         image.SetOrigin(image.width / 2, image.height / 2);
 
@@ -23,21 +25,21 @@ class DeathScreen : UI
         image.height = game.height / 2;
 
         image.SetXY(width / 2, height / 2);
-        loimagego.alpha = 0;
+        image.alpha = 0;
+        image.scale = 0.5f;
         AddChild(image);
     }
 
     void Update()
     {
         base.Update();
-        graphics.Clear(Color.Black);
 
-        image.scale += 0.001f;
+        if (canPlaySound) channel = sound.Play(false, 0, 0.5f); canPlaySound = false;
 
-        if (timeMillis < 3000 && timeMillis > 500)
+        image.scale += 0.0005f;
+
+        if (timeMillis < 3000)
         {
-            if (canPlaySound) sound.Play(); canPlaySound = false;
-
             if (image.alpha < 1)
             {
                 image.alpha += 0.01f;
@@ -62,11 +64,14 @@ class DeathScreen : UI
 
         if (timeMillis > 4000)
         {
-            MyGame.Instance.UserInterfaceManager.AddInterface(1);
+            MyGame.Instance.UserInterfaceManager.RemoveInterface(5);
+            MyGame.Instance.levelManager.RestartLevel();
+            image.scale = 0.5f;
+            canPlaySound = true;
         }
         if (timeMillis > 4100)
         {
-            MyGame.Instance.UserInterfaceManager.RemoveInterface(0);
+            MyGame.Instance.UserInterfaceManager.AddInterface(4);
         }
     }
 }
