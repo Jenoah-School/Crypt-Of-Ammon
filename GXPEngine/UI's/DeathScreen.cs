@@ -33,6 +33,8 @@ class DeathScreen : UI
     void Update()
     {
         base.Update();
+        MyGame.Instance.levelManager.ingameMusic.Volume = 0.075f;
+        MyGame.Instance.levelManager.currentLevel.player.canMove = false;
 
         if (canPlaySound) channel = sound.Play(false, 0, 0.5f); canPlaySound = false;
 
@@ -68,6 +70,8 @@ class DeathScreen : UI
             MyGame.Instance.levelManager.RestartLevel();
             image.scale = 0.5f;
             canPlaySound = true;
+            MyGame.Instance.levelManager.ingameMusic.Volume = 0.2f;
+            MyGame.Instance.levelManager.currentLevel.player.canMove = true;
         }
         if (timeMillis > 4100)
         {

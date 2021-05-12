@@ -40,7 +40,8 @@ public class HorizontalLevel : Level
         Entity centerTopBlock = new Entity("Assets/Sprites/square.png", new Vec2(4762, 508), 256, 64, false, true, float.PositiveInfinity, 0f);
         Entity centerTopBlock1 = new Entity("Assets/Sprites/square.png", new Vec2(4796, 444), 190, 64, false, true, float.PositiveInfinity, 0f);
         Entity centerTopBlock2 = new Entity("Assets/Sprites/square.png", new Vec2(4848, 368), 84, 84, false, true, float.PositiveInfinity, 0f);
-        Entity rightPiece = new Entity("Assets/Sprites/square.png", new Vec2(currentLevelSize.x - 472, currentLevelSize.y / 2 + 554), 768, 46, false, true, float.PositiveInfinity, 0f);
+        Entity centerTopBlock3 = new Entity("Assets/Sprites/square.png", new Vec2(4848, 74), 84, 84, false, true, float.PositiveInfinity, 0f);
+        Entity rightPiece = new Entity("Assets/Sprites/square.png", new Vec2(currentLevelSize.x - 472, currentLevelSize.y / 2 + 557), 768, 46, false, true, float.PositiveInfinity, 0f);
         Entity rightWall = new Entity("Assets/Sprites/square.png", new Vec2(currentLevelSize.x - 48, currentLevelSize.y / 2f), 96, (int)currentLevelSize.y, false, true, float.PositiveInfinity, 0f);
         Entity roof = new Entity("Assets/Sprites/square.png", new Vec2(currentLevelSize.x / 2, 32), (int)currentLevelSize.x, 64, false, true, float.PositiveInfinity, 0f);
 
@@ -126,14 +127,15 @@ public class HorizontalLevel : Level
         sceneObjects.Add(centerTopBlock);
         sceneObjects.Add(centerTopBlock1);
         sceneObjects.Add(centerTopBlock2);
+        sceneObjects.Add(centerTopBlock3);
         sceneObjects.Add(rightPiece);
         sceneObjects.Add(rightWall);
         sceneObjects.Add(pushBox1);
         sceneObjects.Add(pushBox2);
         sceneObjects.Add(pushBox3);
+        sceneObjects.Add(roof);
         sceneObjects.Add(gate);
         sceneObjects.Add(bridge);
-        sceneObjects.Add(roof);
 
         sceneObjects.Add(player);
 
@@ -156,6 +158,7 @@ public class HorizontalLevel : Level
         centerTopBlock.visible = false;
         centerTopBlock1.visible = false;
         centerTopBlock2.visible = false;
+        centerTopBlock3.visible = false;
         rightPiece.visible = false;
         rightWall.visible = false;
         roof.visible = false;
@@ -180,6 +183,7 @@ public class HorizontalLevel : Level
         centerTopPiece.ignoreColliders.Add(centerTopBlock.collider);
         centerTopBlock.ignoreColliders.Add(centerTopBlock1.collider);
         centerTopBlock1.ignoreColliders.Add(centerTopBlock2.collider);
+        centerTopBlock3.ignoreColliders.Add(roof.collider);
         rightWall.ignoreColliders.Add(rightPiece.collider);
         rightWall.ignoreColliders.Add(floor.collider);
         rightWall.ignoreColliders.Add(roof.collider);
@@ -210,6 +214,7 @@ public class HorizontalLevel : Level
         AddChild(centerTopBlock);
         AddChild(centerTopBlock1);
         AddChild(centerTopBlock2);
+        AddChild(centerTopBlock3);
         AddChild(rightPiece);
         AddChild(rightWall);
         AddChild(roof);

@@ -47,7 +47,7 @@ public class Player : Entity
 
     public void Update()
     {
-        if (MyGame.Instance.HasChild(MyGame.Instance.UserInterfaceManager) && !MyGame.Instance.UserInterfaceManager.HasChild(MyGame.Instance.UserInterfaceManager.UserInterfaces[4]) || canMove == false)
+        if (MyGame.Instance.HasChild(MyGame.Instance.UserInterfaceManager) && !MyGame.Instance.UserInterfaceManager.HasChild(MyGame.Instance.UserInterfaceManager.UserInterfaces[4]) && !MyGame.Instance.UserInterfaceManager.HasChild(MyGame.Instance.UserInterfaceManager.UserInterfaces[5]) || !canMove)
         {
             return;
         }

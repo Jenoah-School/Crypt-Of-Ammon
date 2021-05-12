@@ -68,6 +68,7 @@
     <Compile Include="Level Props\Box.cs" />
     <Compile Include="Level Props\Door.cs" />
     <Compile Include="Level Props\Lever.cs" />
+    <Compile Include="Level Props\StaffLight.cs" />
     <Compile Include="Level Props\Torch.cs" />
     <Compile Include="Level Props\TriggerCollider.cs" />
     <Compile Include="Levels\EndLevelScreen.cs" />

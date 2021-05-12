@@ -10,6 +10,7 @@ public class HubLevel : Level
     Background background;
     Door door1;
     Lever staff;
+    StaffLight staffLight;
     public Door door2 { get; private set; }
 
     private int pressurePlatesDown = 0;
@@ -44,6 +45,7 @@ public class HubLevel : Level
         Trigger pressurePlate = new Trigger("Assets/Sprites/Pressure_Plate_01.png", new Vec2(2450,2045), 256);
 
 		staff = new Lever("Assets/Sprites/Player/handStaff.png", new Vec2(1042, currentLevelSize.y - 256f), 36);
+        staffLight = new StaffLight(new Vec2(staff.x, staff.y - staff.height / 3f), 480, 480);
         staff.rotation = 0;
 
         Torch torch1 = new Torch(new Vec2(500, 1750), 1920, 1580);
@@ -90,6 +92,7 @@ public class HubLevel : Level
         AddChild(pushBox);
         AddChild(pressurePlate);
         AddChild(staff);
+        AddChild(staffLight);
         AddChild(player);
 
         
@@ -172,6 +175,7 @@ public class HubLevel : Level
     {
         player.hasStaff = true;
         staff.visible = false;
+        staffLight.visible = false;
     }
 
     void ActivatePressurePlate(Trigger _pressurePlate)
